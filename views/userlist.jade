@@ -1,0 +1,32 @@
+extends layout
+//-script(src="../../app.js");
+
+
+block content
+    a#data-link(href='ftp://webftp.vancouver.ca/OpenData/csv/CommunityFoodMarketsandFarmersMarkets.csv') the link
+    script.
+        var csvString = csvRows.join('\n');
+        var a = document.createElement('a');
+        a.href     = 'data:attachment/csv,' + csvString;
+        a.target   ='_blank';
+        a.download = 'myFile.csv,' + encodeURIComponent(csvString); ;
+        //a.innerHTML = "Click me to download the file.";
+        document.body.appendChild(a);
+    h1.
+        User List
+    div
+        table(style='width: 100%; text-align: left')
+            tr
+                th Username
+                th Email
+            each user, i in userlist
+                tr
+                    td 
+                        a(href="mailto:#{user.email}")= user.username
+                    td 
+                        a(href="mailto:#{user.email}")= user.email
+        //- 
+        //- ul
+        //-     each user, j in userlist
+        //-         li
+        //-             a(href="mailto:#{user.email}")= user.username
