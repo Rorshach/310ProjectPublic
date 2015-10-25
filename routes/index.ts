@@ -1,12 +1,13 @@
-///<reference path='../types/DefinitelyTyped/node/node.d.ts'/>
+  ///<reference path='../types/DefinitelyTyped/node/node.d.ts'/>
 /// <reference path='../types/DefinitelyTyped/express/express.d.ts'/>
+import testUser = require('./user/user');
 
 class Router {
 
   constructor() {
     var express = require('express');
-    var user = require('./user/user');
-    var parser = require('./parser/parser');
+    //var user = require('./user/user');
+    //var parser = require('./parser/parser');
     var router = express.Router();
 
     /* GET home page. */
@@ -52,7 +53,7 @@ class Router {
       var userEmail = req.body.useremail;
 
       // Create a new user
-      var tempUser = new user.User(userName, userEmail);
+      var tempUser = new testUser.User(userName, userEmail);
 
       // Set our collection
       var collection = db.get('usercollection');
@@ -60,7 +61,7 @@ class Router {
       // Submit to the DB
       collection.insert({
         "username" : tempUser.getName(),
-        "email" : tempUser.getName()
+        "email" : tempUser.getEmail()
       }, function (err, doc) {
         if (err) {
           // If it failed, return error

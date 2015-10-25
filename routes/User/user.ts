@@ -1,12 +1,12 @@
 ///<reference path='../../types/DefinitelyTyped/node/node.d.ts'/>
 /// <reference path='../../types/DefinitelyTyped/express/express.d.ts'/>
 
-interface UserInterface {
+export interface UserInterface {
   getName() : string;
   getEmail() : string;
 }
 
-class User implements UserInterface {
+export class User implements UserInterface {
   private userName: string;
   private userEmail: string;
 

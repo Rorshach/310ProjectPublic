@@ -1,10 +1,11 @@
 ///<reference path='../types/DefinitelyTyped/node/node.d.ts'/>
 /// <reference path='../types/DefinitelyTyped/express/express.d.ts'/>
+var testUser = require('./user/user');
 var Router = (function () {
     function Router() {
         var express = require('express');
-        var user = require('./user/user');
-        var parser = require('./parser/parser');
+        //var user = require('./user/user');
+        //var parser = require('./parser/parser');
         var router = express.Router();
         /* GET home page. */
         router.get('/', function (req, res, next) {
@@ -40,13 +41,13 @@ var Router = (function () {
             var userName = req.body.username;
             var userEmail = req.body.useremail;
             // Create a new user
-            var tempUser = new user.User(userName, userEmail);
+            var tempUser = new testUser.User(userName, userEmail);
             // Set our collection
             var collection = db.get('usercollection');
             // Submit to the DB
             collection.insert({
                 "username": tempUser.getName(),
-                "email": tempUser.getName()
+                "email": tempUser.getEmail()
             }, function (err, doc) {
                 if (err) {
                     // If it failed, return error

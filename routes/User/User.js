@@ -13,3 +13,4 @@ var User = (function () {
     };
     return User;
 })();
+exports.User = User;
