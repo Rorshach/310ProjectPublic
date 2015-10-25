@@ -5,6 +5,8 @@ class Router {
 
   constructor() {
     var express = require('express');
+    var user = require('./user/user');
+    var parser = require('./parser/parser');
     var router = express.Router();
 
     /* GET home page. */
@@ -50,7 +52,7 @@ class Router {
       var userEmail = req.body.useremail;
 
       // Create a new user
-      var tempUser = new User(userName, userEmail);
+      var tempUser = new user.User(userName, userEmail);
 
       // Set our collection
       var collection = db.get('usercollection');
@@ -58,7 +60,7 @@ class Router {
       // Submit to the DB
       collection.insert({
         "username" : tempUser.getName(),
-        "email" : userEmail.getName()
+        "email" : tempUser.getName()
       }, function (err, doc) {
         if (err) {
           // If it failed, return error
@@ -73,28 +75,6 @@ class Router {
   }
 }
 
-interface UserInterface {
-  getName() : string;
-  getEmail() : string;
-}
-
-class User implements UserInterface {
-  private userName: string;
-  private userEmail: string;
-
-  constructor(userName: string, userEmail: string) {
-    this.userName = userName;
-    this.userEmail = userEmail;
-  }
-
-  getName() {
-    return this.userName;
-  }
-
-  getEmail() {
-    return this.userEmail;
-  }
-}
 
 
 

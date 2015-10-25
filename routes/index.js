@@ -3,11 +3,12 @@
 var Router = (function () {
     function Router() {
         var express = require('express');
-        var user = require('./User/User');
+        var user = require('./user/user');
+        var parser = require('./parser/parser');
         var router = express.Router();
         /* GET home page. */
         router.get('/', function (req, res, next) {
-            res.render('index', { title: 'Express' })
+            res.render('index', { title: 'Express' });
         });
         /* GET Hello World page. */
         router.get('/helloworld', function (req, res) {
@@ -27,12 +28,10 @@ var Router = (function () {
         router.get('/newuser', function (req, res) {
             res.render('newuser', { title: 'Add New User' });
         });
-
-        /* GET Test Page */
-        router.get('/testpage', function(req, res) {
-          res.render('testpage', { title: 'Test Title' });
+        /* GET Test page */
+        router.get('/testpage', function (req, res) {
+            res.render('testpage', { title: 'Test Title' });
         });
-
         /* POST to Add User Service */
         router.post('/adduser', function (req, res) {
             // Set our internal DB variable
@@ -42,13 +41,12 @@ var Router = (function () {
             var userEmail = req.body.useremail;
             // Create a new user
             var tempUser = new user.User(userName, userEmail);
-            //Set our collection
+            // Set our collection
             var collection = db.get('usercollection');
             // Submit to the DB
-
             collection.insert({
-                "username": tempUser.getName,
-                "email": tempUser.getEmail
+                "username": tempUser.getName(),
+                "email": tempUser.getName()
             }, function (err, doc) {
                 if (err) {
                     // If it failed, return error
@@ -64,5 +62,4 @@ var Router = (function () {
     }
     return Router;
 })();
-
 var router = new Router();
