@@ -3,6 +3,7 @@
 var Router = (function () {
     function Router() {
         var express = require('express');
+        var user = require('./User/User');
         var router = express.Router();
         /* GET home page. */
         router.get('/', function (req, res, next) {
@@ -40,13 +41,14 @@ var Router = (function () {
             var userName = req.body.username;
             var userEmail = req.body.useremail;
             // Create a new user
-            var tempUser = new User(userName, userEmail);
-            // Set our collection
+            var tempUser = new user.User(userName, userEmail);
+            //Set our collection
             var collection = db.get('usercollection');
             // Submit to the DB
+
             collection.insert({
-                "username": userName,
-                "email": userEmail
+                "username": tempUser.getName,
+                "email": tempUser.getEmail
             }, function (err, doc) {
                 if (err) {
                     // If it failed, return error
@@ -63,17 +65,4 @@ var Router = (function () {
     return Router;
 })();
 
-var User = (function () {
-    function User(userName, userEmail) {
-        this.userName = userName;
-        this.userEmail = userEmail;
-    }
-    User.prototype.getName = function () {
-        return this.userName;
-    };
-    User.prototype.getEmail = function () {
-        return this.userEmail;
-    };
-    return User;
-})();
 var router = new Router();

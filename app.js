@@ -16,6 +16,7 @@ var Application = (function () {
         var users = require('./routes/users');
         var Papa = require('babyparse');
         var fs = require('fs');
+
         var testFile = 'nodetest1/test.csv';
 
 
@@ -161,6 +162,9 @@ var Application = (function () {
 })();
 
 var app = new Application();
+
+//var testUser = require('./User');
+
 var testFile = "test.csv";
 var fs = require('fs');
 var Papa = require('babyparse');
@@ -187,19 +191,18 @@ var csv1 = Papa.unparse([
   }
 ]);
 
-var tempVar = new Csv(csv1);
-console.log(tempVar.getCsvData());
+// var tempVar = new Csv(csv1);
+// console.log(tempVar.getCsvData());
+//
+// var content = fs.readFileSync(testFile, { encoding: 'binary' });
+// Papa.parse(content, {
+//     step: function(row){
+//         console.log("Row: ", row.data);
+//     }
+// });
 
-var content = fs.readFileSync(testFile, { encoding: 'binary' });
-Papa.parse(content, {
-    step: function(row){
-        console.log("Row: ", row.data);
-    }
-});
 //Papa.parse(testFile, {
   //complete: function(results) {
     //console.log("Finished:", results.data);
   //}
 //});
-
-//var data = Papa.parse(csv);
