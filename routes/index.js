@@ -1,6 +1,7 @@
 ///<reference path='../types/DefinitelyTyped/node/node.d.ts'/>
 /// <reference path='../types/DefinitelyTyped/express/express.d.ts'/>
-var testUser = require('./user/user');
+var user = require('./user/user');
+var parser = require('./parser/parser');
 var Router = (function () {
     function Router() {
         var express = require('express');
@@ -9,6 +10,8 @@ var Router = (function () {
         var router = express.Router();
         /* GET home page. */
         router.get('/', function (req, res, next) {
+            var x = new parser.Parser();
+            x.test();
             res.render('index', { title: 'Express' });
         });
         /* GET Hello World page. */
@@ -41,7 +44,7 @@ var Router = (function () {
             var userName = req.body.username;
             var userEmail = req.body.useremail;
             // Create a new user
-            var tempUser = new testUser.User(userName, userEmail);
+            var tempUser = new user.User(userName, userEmail);
             // Set our collection
             var collection = db.get('usercollection');
             // Submit to the DB

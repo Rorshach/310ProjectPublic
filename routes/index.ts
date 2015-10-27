@@ -1,6 +1,7 @@
   ///<reference path='../types/DefinitelyTyped/node/node.d.ts'/>
 /// <reference path='../types/DefinitelyTyped/express/express.d.ts'/>
-import testUser = require('./user/user');
+import user = require('./user/user');
+import parser = require('./parser/parser');
 
 class Router {
 
@@ -12,6 +13,9 @@ class Router {
 
     /* GET home page. */
     router.get('/', function(req, res, next) {
+      var x = new parser.Parser();
+      x.test();
+      
       res.render('index', { title: 'Express' });
     });
 
@@ -53,7 +57,7 @@ class Router {
       var userEmail = req.body.useremail;
 
       // Create a new user
-      var tempUser = new testUser.User(userName, userEmail);
+      var tempUser = new user.User(userName, userEmail);
 
       // Set our collection
       var collection = db.get('usercollection');
