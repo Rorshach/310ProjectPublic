@@ -16,8 +16,10 @@ class Router {
 
     /* GET home page. */
     router.get('/', function(req, res, next) {
+      var fmUrl = ('ftp://webftp.vancouver.ca/OpenData/csv/CommunityFoodMarketsandFarmersMarkets.csv');
+
       var tempParser = new parser.Parser();
-      tempParser.connect();
+      tempParser.connect(fmUrl);
       tempParser.parseCSVUrl("testUrl");
       tempParser.store("testStore");
 
