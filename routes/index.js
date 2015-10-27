@@ -1,5 +1,6 @@
 ///<reference path='../types/DefinitelyTyped/node/node.d.ts'/>
 /// <reference path='../types/DefinitelyTyped/express/express.d.ts'/>
+// url to push - https://github.com/CPSC310-2015W1/IDE-A.git
 var user = require('./user/user');
 var parser = require('./parser/parser');
 var Router = (function () {
@@ -10,8 +11,10 @@ var Router = (function () {
         var router = express.Router();
         /* GET home page. */
         router.get('/', function (req, res, next) {
-            var x = new parser.Parser();
-            x.test();
+            var tempParser = new parser.Parser();
+            tempParser.connect();
+            tempParser.parseCSVUrl("testUrl");
+            tempParser.store("testStore");
             res.render('index', { title: 'Express' });
         });
         /* GET Hello World page. */
