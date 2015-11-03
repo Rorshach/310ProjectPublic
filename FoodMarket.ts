@@ -1,6 +1,6 @@
 ///<reference path='types/DefinitelyTyped/node/node.d.ts'/>
 /// <reference path='types/DefinitelyTyped/express/express.d.ts'/>
-	 
+
 class FoodMarket {
     //properties
     name: string;
@@ -9,7 +9,7 @@ class FoodMarket {
     closeHour: string;
     day: string;
     month: string;
-
+//updated database for this omg
     constructor(name: string, address: string, openHour: string, closeHour: string, day: string, month: string) {
         this.name = name;
         this.address = address;
@@ -17,10 +17,10 @@ class FoodMarket {
         this.closeHour = closeHour;
         this.day = day;
         this.month = month;
-    }   
-	
+    }
+
     // functions
-	
+
     getName() { return this.name; }
     getAddress() { return this.address; }
     getOpenHour() { return this.openHour; }
