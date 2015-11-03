@@ -1,7 +1,7 @@
-///<reference path='types/DefinitelyTyped/node/node.d.ts'/>
-/// <reference path='types/DefinitelyTyped/express/express.d.ts'/>
-///<reference path='FoodMarket.ts'/> 
-	
+///<reference path='../../types/DefinitelyTyped/node/node.d.ts'/>
+/// <reference path='../../types/DefinitelyTyped/express/express.d.ts'/>
+///<reference path='FoodMarket.ts'/>
+
 class FoodMarketFactory {
 
     private static _instance: FoodMarketFactory = new FoodMarketFactory();
