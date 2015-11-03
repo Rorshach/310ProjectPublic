@@ -6,8 +6,6 @@ var parser = require('./parser/parser');
 var Router = (function () {
     function Router() {
         var express = require('express');
-        //var user = require('./user/user');
-        //var parser = require('./parser/parser');
         var router = express.Router();
         /* GET home page. */
         router.get('/', function (req, res, next) {
@@ -38,7 +36,33 @@ var Router = (function () {
         });
         /* GET Test page */
         router.get('/testpage', function (req, res) {
-            res.render('testpage', { title: 'Test Title' });
+            var mongo = require('mongodb');
+            var monk = require('monk');
+            var db = monk('localhost:27017/test2');
+            var collection = db.get('marketCollection');
+            var name = "tempName2";
+            var address = "tempAddress";
+            var openHour = "tempOpenHour";
+            var closeHour = "tempCloseHour";
+            var tempDay = "tempDay";
+            var tempMonth = "temp Month";
+            collection.insert({
+                "name": name,
+                "address": address,
+                "openHour": openHour,
+                "closeHour": closeHour,
+                "day": tempDay,
+                "month": tempMonth
+            }, function (err, doc) {
+                if (err) {
+                    res.send("There was a problem adding data to the database.");
+                }
+                else {
+                    collection.find({}, {}, function (e, docs) {
+                        res.render('testpage', { title: 'Test Title' });
+                    });
+                }
+            });
         });
         /* POST to Add User Service */
         router.post('/adduser', function (req, res) {

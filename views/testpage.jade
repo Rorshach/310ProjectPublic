@@ -1,6 +1,29 @@
 extends layout
 
 block content
-    h1 Test header
-    p testing the title. Title: #{title}
+    h1 Testpage
+    //- div
+    //-     table(style='width: 100%; text-align: left')
+    //-         tr
+    //-             th Name
+    //-             th Address
+    //-             th Open
+    //-             th Close
+    //-             th Day
+    //-             th Month
+    //-         each user, i in userlist
+    //-             tr
+    //-                 td 
+    //-                     a(href="mailto:#{user.email}")= user.username
+    //-                 td 
+    //-                     a(href="mailto:#{user.email}")= user.email
+    //-                 td 
+    //-                     a(href="mailto:#{user.email}")= user.username
+    //-                 td 
+    //-                     a(href="mailto:#{user.email}")= user.email 
+    //-                 td 
+    //-                     a(href="mailto:#{user.email}")= user.username
+    //-                 td 
+    //-                     a(href="mailto:#{user.email}")= user.email                                           
+    //-       
     
