@@ -1,0 +1,16 @@
+extends layout
+
+block content
+    h1.
+        Market List (Reorganized)
+    ul
+        each market, i in marketOrganized
+            h2.
+                #{market.name}
+            div
+                li
+                    p Address: #{market.address}
+                    p Opens At: #{market.openHour}
+                    p Closed At: #{market.closeHour}
+                    p Days Open: #{market.day}
+                    p Months Open: #{market.month}

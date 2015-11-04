@@ -1,8 +1,6 @@
 ///<reference path='../types/DefinitelyTyped/node/node.d.ts'/>
 /// <reference path='../types/DefinitelyTyped/express/express.d.ts'/>
 ///<reference path='./foodmarket/FoodMarket'/>
-// url to push - https://github.com/CPSC310-2015W1/IDE-A.git
-var user = require('./user/user');
 var parser = require('./parser/parser');
 var foodmarket = require('./foodmarket/foodmarket');
 //import fmf = require(./foodmarket/foodmarketfactory);
@@ -17,13 +15,15 @@ var Router = (function () {
             tempParser.connect(fmUrl);
             //tempParser.parseCsvUrl("testUrl");
             tempParser.store("testStore");
-            res.render('index', { title: 'Express' });
+            res.render('index', { title: 'Food Market Locator' });
         });
         /* GET Hello World page. */
         router.get('/helloworld', function (req, res) {
-            var mongo = require('mongodb');
-            var monk = require('monk');
-            var db = monk('localhost:27017/test2');
+            res.render('helloworld', { title: 'Hello, World' });
+        });
+        /* GET marketList page. */
+        router.get('/marketList', function (req, res) {
+            var db = req.db;
             var collection = db.get('marketCollection');
             var fm = new foodmarket.FoodMarket("a", "a", "a", "a", "a", "a");
             console.log(fm);
@@ -68,22 +68,38 @@ var Router = (function () {
             //   // Store or update database with object
             //   // Check if next row is endstr
             // }
-            res.render('helloworld', { title: 'Hello, World' });
-        });
-        /* GET Userlist page. */
-        router.get('/userlist', function (req, res) {
-            var db = req.db;
-            var collection = db.get('usercollection');
             collection.find({}, {}, function (e, docs) {
-                res.render('userlist', {
-                    "userlist": docs
+                res.render('marketList', {
+                    "marketList": docs
                 });
             });
         });
-        /* GET New User Page */
-        router.get('/newuser', function (req, res) {
-            res.render('newuser', { title: 'Add New User' });
+        /*GET marketFiltered page */
+        router.get('/marketOrganized', function (req, res) {
+            var db = req.db;
+            var collection = db.get('marketCollection');
+            collection.find({}, {}, function (e, docs) {
+                res.render('marketOrganized', {
+                    "marketOrganized": docs
+                });
+            });
         });
+        /* GET Userlist page. */
+        /*router.get('/userlist', function(req, res) {
+            var db = req.db;
+            var collection = db.get('usercollection');
+            collection.find({},{},function(e,docs){
+                res.render('userlist', {
+                    "userlist" : docs
+                });
+            });
+        });
+    
+        /* GET New User Page */
+        /*router.get('/newuser', function(req, res) {
+          res.render('newuser', { title: 'Add New User' });
+        });
+    
         /* GET Test page */
         router.get('/testpage', function (req, res) {
             var mongo = require('mongodb');
@@ -114,32 +130,41 @@ var Router = (function () {
                 }
             });
         });
-        /* POST to Add User Service */
-        router.post('/adduser', function (req, res) {
-            // Set our internal DB variable
-            var db = req.db;
-            // Get our form values. These rely on the "name" attributes
-            var userName = req.body.username;
-            var userEmail = req.body.useremail;
-            // Create a new user
-            var tempUser = new user.User(userName, userEmail);
-            // Set our collection
-            var collection = db.get('usercollection');
-            // Submit to the DB
-            collection.insert({
-                "username": tempUser.getName(),
-                "email": tempUser.getEmail()
-            }, function (err, doc) {
-                if (err) {
-                    // If it failed, return error
-                    res.send("There was a problem adding the information to the database");
-                }
-                else {
-                    // And forward to success page
-                    res.redirect("userlist");
-                }
-            });
+        /*Post to LoadMarket service */
+        router.post('/loadMarket', function (req, res) {
+            res.redirect("marketList");
         });
+        /* POST to Add User Service */
+        /*router.post('/adduser', function(req, res) {
+    
+          // Set our internal DB variable
+          var db = req.db;
+    
+    
+          // Get our form values. These rely on the "name" attributes
+          var userName = req.body.username;
+          var userEmail = req.body.useremail;
+    
+          // Create a new user
+          var tempUser = new user.User(userName, userEmail);
+    
+          // Set our collection
+          var collection = db.get('usercollection');
+    
+          // Submit to the DB
+          collection.insert({
+            "username" : tempUser.getName(),
+            "email" : tempUser.getEmail()
+          }, function (err, doc) {
+            if (err) {
+              // If it failed, return error
+              res.send("There was a problem adding the information to the database")
+            } else {
+              // And forward to success page
+              res.redirect("userlist");
+            }
+          });
+        }); */
         module.exports = router;
     }
     return Router;

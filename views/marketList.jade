@@ -1,0 +1,23 @@
+extends layout
+
+block content
+    h1.
+        Market List
+    body
+      table.table.table-hover.table-bordered
+       thead
+          tr
+            th Name
+            th Address
+            th Open Hours
+            th Closed Hours
+            th Days Open
+            th Months Open
+        each market, i in marketList
+          tr
+            td #{market.name}
+            td #{market.address}
+            td #{market.openHour}
+            td #{market.closeHour}
+            td #{market.day}
+            td #{market.month}

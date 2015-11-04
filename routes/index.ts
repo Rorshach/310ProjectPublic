@@ -24,14 +24,17 @@ class Router {
       //tempParser.parseCsvUrl("testUrl");
       tempParser.store("testStore");
 
-      res.render('index', { title: 'Express' });
+      res.render('index', { title: 'Food Market Locator' });
     });
 
     /* GET Hello World page. */
     router.get('/helloworld', function(req, res) {
-      var mongo = require('mongodb');
-      var monk = require('monk');
-      var db = monk('localhost:27017/test2');
+      res.render('helloworld', { title: 'Hello, World' });
+    });
+
+    /* GET marketList page. */
+    router.get('/marketList', function(req, res) {
+      var db = req.db;
       var collection = db.get('marketCollection');
 
       var fm = new foodmarket.FoodMarket("a", "a", "a", "a", "a", "a");
@@ -80,7 +83,6 @@ class Router {
       }
 
       var tempFMRowData = "";
-
       // while (tempFMRowData !== "End of parsed data.") {
       //
       //   // Go through the parsed data row by row
@@ -88,13 +90,25 @@ class Router {
       //   // Store or update database with object
       //   // Check if next row is endstr
       // }
-
-
-      res.render('helloworld', { title: 'Hello, World' });
+      collection.find({},{},function(e,docs){
+        res.render('marketList', {
+          "marketList" : docs
+        });
+      });
     });
 
+    /*GET marketFiltered page */
+    router.get('/marketOrganized', function(req, res) {
+      var db = req.db;
+      var collection = db.get('marketCollection');
+      collection.find({},{},function(e,docs){
+        res.render('marketOrganized', {
+          "marketOrganized" : docs
+        });
+      });
+    });
     /* GET Userlist page. */
-    router.get('/userlist', function(req, res) {
+    /*router.get('/userlist', function(req, res) {
         var db = req.db;
         var collection = db.get('usercollection');
         collection.find({},{},function(e,docs){
@@ -105,7 +119,7 @@ class Router {
     });
 
     /* GET New User Page */
-    router.get('/newuser', function(req, res) {
+    /*router.get('/newuser', function(req, res) {
       res.render('newuser', { title: 'Add New User' });
     });
 
@@ -141,8 +155,13 @@ class Router {
       });
     });
 
+    /*Post to LoadMarket service */
+    router.post('/loadMarket', function(req, res) {
+          res.redirect("marketList");
+    });
+
     /* POST to Add User Service */
-    router.post('/adduser', function(req, res) {
+    /*router.post('/adduser', function(req, res) {
 
       // Set our internal DB variable
       var db = req.db;
@@ -171,7 +190,7 @@ class Router {
           res.redirect("userlist");
         }
       });
-    });
+    }); */
     module.exports = router;
   }
 }
