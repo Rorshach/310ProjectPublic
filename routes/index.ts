@@ -21,7 +21,7 @@ class Router {
 
       var tempParser = new parser.Parser();
       tempParser.connect(fmUrl);
-      tempParser.parseCSVUrl("testUrl");
+      //tempParser.parseCsvUrl("testUrl");
       tempParser.store("testStore");
 
       res.render('index', { title: 'Express' });
@@ -29,9 +29,38 @@ class Router {
 
     /* GET Hello World page. */
     router.get('/helloworld', function(req, res) {
+      var mongo = require('mongodb');
+      var monk = require('monk');
+      var db = monk('localhost:27017/test2');
+      var collection = db.get('marketCollection');
+
+      var name = "tempName2";
+      var address = "tempAddress";
+      var openHour = "tempOpenHour";
+      var closeHour = "tempCloseHour";
+      var tempDay = "tempDay";
+      var tempMonth = "temp Month";
+
+      //while()
+
       var fm = new foodmarket.FoodMarket("a", "a", "a", "a", "a", "a");
       console.log(fm);
       console.log(fm.getName());
+
+      var tempParser = new parser.Parser();
+      var fmArray = tempParser.parseCsv("test.csv");
+      console.log(fmArray);
+
+      var tempFMRowData = "";
+      // while (tempFMRowData !== "End of parsed data.") {
+      //
+      //   // Go through the parsed data row by row
+      //   // Create a food market object with each row
+      //   // Store or update database with object
+      //   // Check if next row is endstr
+      // }
+
+
       res.render('helloworld', { title: 'Hello, World' });
     });
 
