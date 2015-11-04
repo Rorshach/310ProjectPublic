@@ -170,21 +170,21 @@ class Router {
       var tempDay = "tempDay";
       var tempMonth = "temp Month";
 
-      collection.insert({
-        "name" : name,
-        "address" : address,
-        "openHour" : openHour,
-        "closeHour" : closeHour,
-        "day" : tempDay,
-        "month" : tempMonth
-      }, function(err, doc) {
-        if (err) {
-          res.send("There was a problem adding data to the database.");
-        } else {
+      // collection.insert({
+      //   "name" : name,
+      //   "address" : address,
+      //   "openHour" : openHour,
+      //   "closeHour" : closeHour,
+      //   "day" : tempDay,
+      //   "month" : tempMonth
+      // }, function(err, doc) {
+      //   if (err) {
+      //     res.send("There was a problem adding data to the database.");
+      //   } else {
           collection.find({},{},function(e,docs){
             res.render('testpage', { title: 'Test Title' });
           });
-        }
+        //}
       });
     });
 
