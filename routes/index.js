@@ -25,6 +25,77 @@ var Router = (function () {
         router.get('/marketList', function (req, res) {
             var db = req.db;
             var collection = db.get('marketCollection');
+            // while (tempFMRowData !== "End of parsed data.") {
+            //
+            //   // Go through the parsed data row by row
+            //   // Create a food market object with each row
+            //   // Store or update database with object
+            //   // Check if next row is endstr
+            // }
+            collection.find({}, {}, function (e, docs) {
+                res.render('marketList', {
+                    "marketList": docs
+                });
+            });
+        });
+        /*GET marketFiltered page */
+        router.get('/marketOrganized', function (req, res) {
+            var db = req.db;
+            var collection = db.get('marketCollection');
+            collection.find({}, {}, function (e, docs) {
+                res.render('marketOrganized', {
+                    "marketOrganized": docs
+                });
+            });
+        });
+        /* GET Userlist page. */
+        /*router.get('/userlist', function(req, res) {
+            var db = req.db;
+            var collection = db.get('usercollection');
+            collection.find({},{},function(e,docs){
+                res.render('userlist', {
+                    "userlist" : docs
+                });
+            });
+        });
+    
+        /* GET New User Page */
+        /*router.get('/newuser', function(req, res) {
+          res.render('newuser', { title: 'Add New User' });
+        });
+    
+        /* GET Test page */
+        router.get('/testpage', function (req, res) {
+            var db = req.db;
+            var collection = db.get('marketCollection');
+            var name = "tempName2";
+            var address = "tempAddress";
+            var openHour = "tempOpenHour";
+            var closeHour = "tempCloseHour";
+            var tempDay = "tempDay";
+            var tempMonth = "temp Month";
+            collection.insert({
+                "name": name,
+                "address": address,
+                "openHour": openHour,
+                "closeHour": closeHour,
+                "day": tempDay,
+                "month": tempMonth
+            }, function (err, doc) {
+                if (err) {
+                    res.send("There was a problem adding data to the database.");
+                }
+                else {
+                    collection.find({}, {}, function (e, docs) {
+                        res.render('testpage', { title: 'Test Title' });
+                    });
+                }
+            });
+        });
+        /*Post to LoadMarket service */
+        router.post('/loadMarket', function (req, res) {
+            var db = req.db;
+            var collection = db.get('marketCollection');
             var fm = new foodmarket.FoodMarket("a", "a", "a", "a", "a", "a");
             console.log(fm);
             console.log(fm.getName());
@@ -96,75 +167,6 @@ var Router = (function () {
                 }, { upsert: true });
             }
             var tempFMRowData = "";
-            // while (tempFMRowData !== "End of parsed data.") {
-            //
-            //   // Go through the parsed data row by row
-            //   // Create a food market object with each row
-            //   // Store or update database with object
-            //   // Check if next row is endstr
-            // }
-            collection.find({}, {}, function (e, docs) {
-                res.render('marketList', {
-                    "marketList": docs
-                });
-            });
-        });
-        /*GET marketFiltered page */
-        router.get('/marketOrganized', function (req, res) {
-            var db = req.db;
-            var collection = db.get('marketCollection');
-            collection.find({}, {}, function (e, docs) {
-                res.render('marketOrganized', {
-                    "marketOrganized": docs
-                });
-            });
-        });
-        /* GET Userlist page. */
-        /*router.get('/userlist', function(req, res) {
-            var db = req.db;
-            var collection = db.get('usercollection');
-            collection.find({},{},function(e,docs){
-                res.render('userlist', {
-                    "userlist" : docs
-                });
-            });
-        });
-    
-        /* GET New User Page */
-        /*router.get('/newuser', function(req, res) {
-          res.render('newuser', { title: 'Add New User' });
-        });
-    
-        /* GET Test page */
-        router.get('/testpage', function (req, res) {
-            var db = req.db;
-            var collection = db.get('marketCollection');
-            var name = "tempName2";
-            var address = "tempAddress";
-            var openHour = "tempOpenHour";
-            var closeHour = "tempCloseHour";
-            var tempDay = "tempDay";
-            var tempMonth = "temp Month";
-            collection.insert({
-                "name": name,
-                "address": address,
-                "openHour": openHour,
-                "closeHour": closeHour,
-                "day": tempDay,
-                "month": tempMonth
-            }, function (err, doc) {
-                if (err) {
-                    res.send("There was a problem adding data to the database.");
-                }
-                else {
-                    collection.find({}, {}, function (e, docs) {
-                        res.render('testpage', { title: 'Test Title' });
-                    });
-                }
-            });
-        });
-        /*Post to LoadMarket service */
-        router.post('/loadMarket', function (req, res) {
             res.redirect("marketList");
         });
         /* POST to Add User Service */
