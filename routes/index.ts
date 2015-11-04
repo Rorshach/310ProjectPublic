@@ -1,10 +1,13 @@
   ///<reference path='../types/DefinitelyTyped/node/node.d.ts'/>
 /// <reference path='../types/DefinitelyTyped/express/express.d.ts'/>
+///<reference path='./foodmarket/FoodMarket'/>
 
 // url to push - https://github.com/CPSC310-2015W1/IDE-A.git
 
 import user = require('./user/user');
 import parser = require('./parser/parser');
+import foodmarket = require('./foodmarket/foodmarket');
+//import fmf = require(./foodmarket/foodmarketfactory);
 
 class Router {
 
@@ -26,6 +29,9 @@ class Router {
 
     /* GET Hello World page. */
     router.get('/helloworld', function(req, res) {
+      var fm = new foodmarket.FoodMarket("a", "a", "a", "a", "a", "a");
+      console.log(fm);
+      console.log(fm.getName());
       res.render('helloworld', { title: 'Hello, World' });
     });
 

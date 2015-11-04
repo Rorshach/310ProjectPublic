@@ -1,7 +1,6 @@
 ///<reference path='../../types/DefinitelyTyped/node/node.d.ts'/>
 /// <reference path='../../types/DefinitelyTyped/express/express.d.ts'/>
 var FoodMarket = (function () {
-    //updated database for this omg
     function FoodMarket(name, address, openHour, closeHour, day, month) {
         this.name = name;
         this.address = address;
@@ -10,7 +9,6 @@ var FoodMarket = (function () {
         this.day = day;
         this.month = month;
     }
-    // functions
     FoodMarket.prototype.getName = function () { return this.name; };
     FoodMarket.prototype.getAddress = function () { return this.address; };
     FoodMarket.prototype.getOpenHour = function () { return this.openHour; };
@@ -25,3 +23,4 @@ var FoodMarket = (function () {
     FoodMarket.prototype.setMonth = function (newMonth) { this.month = newMonth; };
     return FoodMarket;
 })();
+exports.FoodMarket = FoodMarket;
