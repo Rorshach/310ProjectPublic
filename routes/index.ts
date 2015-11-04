@@ -79,6 +79,7 @@ class Router {
             "month" : tempMonth
           },
           { upsert: true}
+
         );
       }
 
@@ -125,9 +126,7 @@ class Router {
 
     /* GET Test page */
     router.get('/testpage', function(req, res) {
-      var mongo = require('mongodb');
-      var monk = require('monk');
-      var db = monk('localhost:27017/test2');
+      var db = req.db;
       var collection = db.get('marketCollection');
 
       var name = "tempName2";
