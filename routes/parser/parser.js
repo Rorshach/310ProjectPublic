@@ -54,7 +54,7 @@ var Parser = (function () {
                 closeHour = attributeArr[13];
                 day = attributeArr[11];
                 month = attributeArr[14];
-                var tempArray = [name, address, openHour, closeHour, day, month];
+                var tempArray = [name, address, openHour, closeHour, day, month, i];
                 fm = tempArray;
                 fmArray.push(fm);
             }

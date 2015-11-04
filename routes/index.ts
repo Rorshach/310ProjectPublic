@@ -34,24 +34,53 @@ class Router {
       var db = monk('localhost:27017/test2');
       var collection = db.get('marketCollection');
 
-      var name = "tempName2";
-      var address = "tempAddress";
-      var openHour = "tempOpenHour";
-      var closeHour = "tempCloseHour";
-      var tempDay = "tempDay";
-      var tempMonth = "temp Month";
-
-      //while()
-
       var fm = new foodmarket.FoodMarket("a", "a", "a", "a", "a", "a");
       console.log(fm);
       console.log(fm.getName());
 
       var tempParser = new parser.Parser();
       var fmArray = tempParser.parseCsv("test.csv");
-      console.log(fmArray);
+      var headers = fmArray[0];
+      console.log(headers);
+      console.log(fmArray[1]);
+
+      var name;
+      var address;
+      var openHour;
+      var closeHour;
+      var tempDay;
+      var tempMonth;
+      var fm_id;
+
+      for (var i=1;i<fmArray.length; i++) {
+        var tempArray = fmArray[i];
+
+        //var testArray = fmArray[1];
+        name = tempArray[0];
+        address = tempArray[1];
+        openHour = tempArray[2];
+        closeHour = tempArray[3];
+        tempDay = tempArray[4];
+        tempMonth = tempArray[5];
+        fm_id = tempArray[6];
+
+        console.log(name);
+        collection.update(
+          {"name" : name},
+          {
+            "name" : name,
+            "address" : address,
+            "openHour" : openHour,
+            "closeHour" : closeHour,
+            "day" : tempDay,
+            "month" : tempMonth
+          },
+          { upsert: true}
+        );
+      }
 
       var tempFMRowData = "";
+
       // while (tempFMRowData !== "End of parsed data.") {
       //
       //   // Go through the parsed data row by row
