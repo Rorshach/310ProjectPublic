@@ -1,0 +1,45 @@
+extends layout
+
+block content
+    h1.
+        Market List
+    body
+      table.table.table-hover.table-bordered
+       thead
+          tr
+            th Year
+            th Type of Market
+            th Name
+            th Market Operator
+            th Street Number
+            th Street Direction
+            th Street Name
+            th Street Type
+            th Address
+            th Market Direction
+            th Website
+            th Open Hours
+            th Closed Hours
+            th Days Open
+            th Months Open
+            th Number of Vendors
+            th Offerings
+        each market, i in marketList
+          tr
+            td #{market.year}
+            td #{market.type}
+            td #{market.name}
+            td #{market.op}
+            td #{market.num}
+            td #{market.direction}
+            td #{market.sname}
+            td #{market.stype}
+            td #{market.address}
+            td #{market.dir}
+            td #{market.web}
+            td #{market.openHour}
+            td #{market.closeHour}
+            td #{market.day}
+            td #{market.month}
+            td #{market.vendors}
+            td #{market.off}

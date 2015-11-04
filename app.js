@@ -1,4 +1,4 @@
-///<reference path='types/DefinitelyTyped/node/node.d.ts'/>
+/// <reference path='types/DefinitelyTyped/node/node.d.ts'/>
 /// <reference path='types/DefinitelyTyped/express/express.d.ts'/>
 var Application = (function () {
     function Application() {
@@ -11,7 +11,7 @@ var Application = (function () {
         // New Code
         var mongo = require('mongodb');
         var monk = require('monk');
-        var db = monk('localhost:27017/nodetest1');
+        var db = monk('localhost:27017/test2');
         var routes = require('./routes/index');
         var users = require('./routes/users');
         var app = express();

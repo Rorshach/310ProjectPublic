@@ -2,4 +2,7 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  p Locations to all the food markets in Vancouver!~ (wow I sound like an ad...)
+
+  form#formLoadMarket(name="loadMarket",method="post",action="/loadMarket")
+          button#btnSubmit(type="submit") Load Data!
