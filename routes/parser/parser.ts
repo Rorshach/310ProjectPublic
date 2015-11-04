@@ -6,7 +6,7 @@ import importUrl = require('url');
 export interface ParserInterface {
   // Need individual files for this. Refactor later.
   connect(url: string) : void;
-  parseCsv(url : string) : string;
+  parseCsv(csvFilePath : string) : Array<Array<string>>;
   store(json: string) : void;
 }
 
@@ -22,40 +22,7 @@ export class Parser implements ParserInterface {
     console.log('parser connect');
   }
 
-  parseCsv(url: string) {
-
-    //var JSFtp = require('jsftp');
-
-    // var ftp = new JSFtp({
-    //   host: 'ftp://webftp.vancouver.ca/OpenData/csv/CommunityFoodMarketsandFarmersMarkets.csv',
-    //   port: 8803,
-    //   //,user: 'anonymous'
-    //   //pass: 'chrome@example.com',
-    // });
-    //
-    // console.log(ftp);
-    // console.log(ftp.port);
-    // var webServer = require('csvtojson').interfaces.web;
-    //
-    // var server = webServer.startWebServer({
-    //   "port":"8801",
-    //   "urlpath":"ftp://webftp.vancouver.ca/OpenData/csv/CommunityFoodMarketsandFarmersMarkets.csv"
-    // });
-    //
-    // console.log(server);
-    //var myUrl = importUrl.parse("ftp://webftp.vancouver.ca/OpenData/csv/CommunityFoodMarketsandFarmersMarkets.csv");
-
-    // var Converter = require('csvtojson').Converter;
-    // var converter = new Converter({constructResult:false}); // For big csv data
-    //
-    // converter.on('record_parsed', function (jsonObj) {
-    //     console.log(jsonObj);
-    //     //require('request').get(jsonObj).pipe(converter);
-    // });
-
-    //require('request').get(jsonObj).pipe(converter);
-
-    var csvFilePath = ("test.csv");
+  parseCsv(csvFilePath: string) {
     var fs = require('fs');
     var Papa = require('babyparse');
 
@@ -74,18 +41,17 @@ export class Parser implements ParserInterface {
         return Csv;
     })();
 
-    var testRow = "";
-
     // change the output type to be the complete parsed file
     // parsed data should be stored in a string and returned later
     // append "End of parsed data" when Finished
+    var tempRow = "";
     var content = fs.readFileSync(csvFilePath, { encoding: 'binary' });
     var verboseArrArr = new Array();
     Papa.parse(content, {
         step: function(row){
-            testRow = row.data;
+            tempRow = row.data;
             //console.log(row.data);
-            verboseArrArr.push(testRow);
+            verboseArrArr.push(tempRow);
         },
         complete: function(results) {
           console.log("End of parsed data.", results.data);
@@ -118,7 +84,7 @@ export class Parser implements ParserInterface {
       }
     }
 
-    console.log(fmArray); // If you want to see all the usable food markets
+    //console.log(fmArray); // If you want to see all the usable food markets
 
     // Papa.parse(csvFilePath, {
     //   complete: function(results) {
@@ -146,9 +112,7 @@ export class Parser implements ParserInterface {
     //console.log(tempJSON);
 
     console.log('parser parse');
-
-    parsedData = testRow;
-    return parsedData;
+    return fmArray;
     //return this.url;
   }
 
