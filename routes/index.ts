@@ -47,36 +47,70 @@ class Router {
       console.log(headers);
       console.log(fmArray[1]);
 
+      var year;
+      var type;
       var name;
+      var op;
+      var num;
+      var direction;
+      var sname;
+      var stype;
       var address;
+      var dir;
+      var web;
       var openHour;
       var closeHour;
       var tempDay;
       var tempMonth;
+      var vendors;
+      var off;
       var fm_id;
 
       for (var i=1;i<fmArray.length; i++) {
         var tempArray = fmArray[i];
 
         //var testArray = fmArray[1];
-        name = tempArray[0];
-        address = tempArray[1];
-        openHour = tempArray[2];
-        closeHour = tempArray[3];
-        tempDay = tempArray[4];
-        tempMonth = tempArray[5];
-        fm_id = tempArray[6];
-
+        //year, type, name, op, num, direction, sname, stype, address, dir, web, openHour, closeHour, day, month, vendors, off, i
+        year = tempArray[0];
+        type = tempArray[1];
+        name = tempArray[2];
+        op = tempArray[3];
+        num = tempArray[4];
+        direction = tempArray[5];
+        sname = tempArray[6];
+        stype = tempArray[7];
+        address = tempArray[8];
+        dir = tempArray[9];
+        web = tempArray[10];
+        openHour = tempArray[11];
+        closeHour = tempArray[12];
+        tempDay = tempArray[13];
+        tempMonth = tempArray[14];
+        vendors = tempArray[15];
+        off = tempArray[16];
+        fm_id = tempArray[17];
+//year, type, name, op, num, direction, sname, stype, address, dir, web, openHour, closeHour, day, month, vendors, off, i
         console.log(name);
         collection.update(
           {"name" : name},
           {
+            "year" : year,
+            "type" : type,
             "name" : name,
+            "op" : op,
+            "num" : num,
+            "direction" : direction,
+            "sname" : sname,
+            "stype" : stype,
             "address" : address,
+            "dir" : dir,
+            "web" : web,
             "openHour" : openHour,
             "closeHour" : closeHour,
             "day" : tempDay,
-            "month" : tempMonth
+            "month" : tempMonth,
+            "vendors" : vendors,
+            "off" : off
           },
           { upsert: true}
 

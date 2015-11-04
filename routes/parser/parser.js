@@ -36,25 +36,47 @@ var Parser = (function () {
                 console.log("End of parsed data.", results.data);
             }
         });
+        var year;
+        var type;
         var name;
+        var op;
+        var num;
+        var direction;
+        var sname;
+        var stype;
         var address;
+        var dir;
+        var web;
         var openHour;
         var closeHour;
         var day;
         var month;
+        var vendors;
+        var off;
         var fm = new Array();
         var fmArray = new Array();
         for (var i = 0; i < verboseArrArr.length - 2; i++) {
             var itemArray = verboseArrArr[i];
             for (var j = 0; j < itemArray.length; j++) {
                 var attributeArr = itemArray[0];
+                year = attributeArr[0];
+                type = attributeArr[1];
                 name = attributeArr[2];
+                op = attributeArr[3];
+                num = attributeArr[4];
+                direction = attributeArr[5];
+                sname = attributeArr[6];
+                stype = attributeArr[7];
                 address = attributeArr[8];
+                dir = attributeArr[9];
+                web = attributeArr[10];
                 openHour = attributeArr[12];
                 closeHour = attributeArr[13];
                 day = attributeArr[11];
                 month = attributeArr[14];
-                var tempArray = [name, address, openHour, closeHour, day, month, i];
+                vendors = attributeArr[15];
+                off = attributeArr[16];
+                var tempArray = [year, type, name, op, num, direction, sname, stype, address, dir, web, openHour, closeHour, day, month, vendors, off, i];
                 fm = tempArray;
                 fmArray.push(fm);
             }
