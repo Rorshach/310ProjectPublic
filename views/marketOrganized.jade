@@ -3,14 +3,16 @@ extends layout
 block content
     h1.
         Market List (Reorganized)
-    ul
+    ul(id='accordion', class='ui-accordion')
         each market, i in marketOrganized
-            h2.
+            h2(class='ui-accordion-header').
                 #{market.name}
-            div
+            div(class='ui-accordion-content')
                 li
                     p Address: #{market.address}
                     p Opens At: #{market.openHour}
                     p Closed At: #{market.closeHour}
                     p Days Open: #{market.day}
                     p Months Open: #{market.month}
+    script
+        $("#accordion").accordion()
