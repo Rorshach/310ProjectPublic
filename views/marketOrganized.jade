@@ -3,6 +3,8 @@ extends layout
 block content
     h1.
         Market List (Reorganized)
+    //login button
+    div.fb-login-button(data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true")
     ul(id='accordion', class='ui-accordion')
         each market, i in marketOrganized
             h2(class='ui-accordion-header').
@@ -15,7 +17,6 @@ block content
                     p Days Open: #{market.day}
                     p Months Open: #{market.month}
     script.
-        $("#accordion").accordion()
         //facebook
         window.fbAsyncInit = function() {
             FB.init({
@@ -32,6 +33,4 @@ block content
             js.src = "//connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
             }(document, 'script', 'facebook-jssdk'));
-
-        //login button
-        //div.fb-login-button(data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true")
+        $("#accordion").accordion()
