@@ -9,7 +9,7 @@ block content
         thead(class='ui-widget-header')
             tr
                 each field, j in marketList[0]
-                if (j != '_id')
+                    if (j != '_id')
                         th #{j}
         tbody(class='ui-widget-content')
             each market, i in marketList
