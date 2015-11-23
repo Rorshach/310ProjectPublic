@@ -3,6 +3,7 @@
 var Application = (function () {
     function Application() {
         var express = require('express');
+        var stormpath = require('express-stormpath');
         var path = require('path');
         var favicon = require('serve-favicon');
         var logger = require('morgan');
@@ -26,6 +27,12 @@ var Application = (function () {
         app.use(bodyParser.urlencoded({ extended: false }));
         app.use(cookieParser());
         app.use(express.static(path.join(__dirname, 'public')));
+        app.use(stormpath.init(app, {
+  apiKeyId:     process.env.STORMPATH_API_KEY_ID,
+  apiKeySecret: process.env.STORMPATH_API_KEY_SECRET,
+  secretKey:    process.env.STORMPATH_SECRET_KEY,
+  application:  process.env.STORMPATH_URL,
+}));
         // Make our db accessible to our router
         app.use(function (req, res, next) {
             req.db = db;
@@ -40,6 +47,15 @@ var Application = (function () {
             err.status = 404;
             next(err);
         });
+        app.use(stormpath.init(app, {
+         enableFacebook: true,
+         social: {
+         facebook: {
+             appId: '437339859788634',
+             appSecret: 'e68ab9729cb3d0cac12c1b047eb46119',
+    },
+  },
+}));
         /// error handlers
         // development error handler
         // will print stacktrace
@@ -66,3 +82,4 @@ var Application = (function () {
     return Application;
 })();
 var app = new Application();
+app.listen(process.env.PORT || 3000);

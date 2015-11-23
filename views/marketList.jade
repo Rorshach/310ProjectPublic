@@ -3,11 +3,13 @@ extends layout
 block content
     h1.
         Market List
+    //login button
+    div.fb-login-button(data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true")
     table(class='ui-widget')
         thead(class='ui-widget-header')
             tr
                 each field, j in marketList[0]
-                    if (j != '_id')
+                if (j != '_id')
                         th #{j}
         tbody(class='ui-widget-content')
             each market, i in marketList
@@ -15,3 +17,21 @@ block content
                     each field, j in market
                         if (j != '_id')
                             td #{field}
+    script.
+        //facebook
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : '437339859788634',
+                xfbml      : true,
+                version    : 'v2.5'
+            });
+        };
+
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        $("#accordion").accordion()
