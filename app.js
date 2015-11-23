@@ -32,6 +32,24 @@ var Application = (function () {
             console.log('Time: ', Date.now());
             next();
         });
+        var stormpath = require('express-stormpath');
+        app.use(stormpath.init(app, {
+            // Optional configuration options.
+            client: {
+                apiKey: {
+                    id: '6X068U6YV7L75FNKOG7HY4A5E',
+                    secret: 'hQBVK7zJ90Qzb7emBW0oarsFJWFbA1FGir8ml/agR50'
+                }
+            },
+            application: {
+                href: 'https://api.stormpath.com/v1/applications/2YmTGX5SI0euCNvVV3Qt0q'
+            },
+            website: true
+        }));
+        // Once Stormpath has initialized itself, start your web server!
+        app.on('stormpath.ready', function () {
+            app.listen(8080);
+        });
         app.use('/', routes);
         app.use('/users', users);
         /// catch 404 and forwarding to error handler
