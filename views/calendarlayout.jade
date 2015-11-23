@@ -11,8 +11,6 @@ html
     script(src='fullCalendar/lib/jquery.min.js')
     script(src='fullCalendar/lib/moment.min.js')
     script(src='fullCalendar/fullcalendar.js')
-    script.
-        $(document).ready(function() {$('#calendar').fullCalendar({})});
   body
     script.
         window.fbAsyncInit = function() {
@@ -21,8 +19,12 @@ html
                 xfbml      : true,
                 version    : 'v2.5'
             });
-            if (typeof getEvents == 'function') {getEvents();}
+        var events = [];
+        var res;
+        FB.getLoginStatus(function(response) {if (response.status === 'connected') {var uid = response.authResponse.userID; var accessToken = response.authResponse.accessToken;
+            FB.api("/154431829383/events",function (response) {if (response && !response.error) {console.log(response);createEvents(response);}});} else if (response.status === 'not_authorized') {} else {}});
         };
+        function createEvents(res){var events = [];for (var i = 0; i < res.data.length; i++) {events[i]= {title:res.data[i].name,start:res.data[i].start_time,end:res.data[i].end_time}};console.log(events);$('#calendar').fullCalendar({events});};
         (function(d, s, id){
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) {return;}

@@ -1,6 +1,4 @@
 extends calendarlayout.jade
 
 block content
-  script.
-    function getEvents() {FB.api("/154431829383/events",function (response) {console.log(response);if (response && !response.error) {console.log(response)}});}
   div(id='calendar')
