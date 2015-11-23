@@ -63,6 +63,11 @@ var Router = (function () {
         /*router.get('/newuser', function(req, res) {
           res.render('newuser', { title: 'Add New User' });
         });
+		    
+        /* GET Calendar Page */
+        router.get('/calendar', function(req, res) {
+          res.render('calendar', { title: 'Calendar' });
+        });
     
         /* GET Test page */
         router.get('/testpage', function (req, res) {
