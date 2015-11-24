@@ -48,6 +48,9 @@ var Router = (function () {
                 });
             });
         });
+        router.get('/facebookTest', function (req, res) {
+            res.render('facebookTest', {});
+        });
         //API KEY: AIzaSyB9TqoY84nCZOotDUCSLNRBuhGr-aiBfSM
         router.get('/map', function (req, res) {
             var tempParser = new parser.Parser();

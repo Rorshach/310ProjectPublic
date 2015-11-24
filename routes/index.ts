@@ -60,6 +60,10 @@ class Router {
         });
       });
     });
+
+    router.get('/facebookTest', function(req, res) {
+      res.render('facebookTest', {});
+    });
     //API KEY: AIzaSyB9TqoY84nCZOotDUCSLNRBuhGr-aiBfSM
     router.get('/map', function(req, res) {
       var tempParser = new parser.Parser();
@@ -105,7 +109,7 @@ class Router {
         "months" : months
       });
     });
-    
+
     /* GET Userlist page. */
     /*router.get('/userlist', function(req, res) {
         var db = req.db;
