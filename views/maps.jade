@@ -1,7 +1,8 @@
+// ** OVER QUERY LIMIT NOT SOLVED, INFO WINDOWS WORK THO, PARSING PROBLEM NOT SOLVED EITHER ** //
 doctype html
 html
   head
-    title Geolocation
+    title Google Maps!
 
     meta(name='viewport', content='initial-scale=1.0, user-scalable=no')
 
@@ -21,16 +22,12 @@ html
     #map
 
     script.
-      // Note: This example requires that you consent to location sharing when
-      // prompted by your browser. If you see the error "The Geolocation service
-      // failed.", it means you probably did not give permission for the browser to
-      // locate you.
       function initMap() {
       var map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 49.283, lng: -123.121},
       zoom: 14
       });
-      // Try HTML5 geolocation.
+      // ****Getting GPS coords **** //
       if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
       var pos = {
@@ -57,12 +54,41 @@ html
       // Browser doesn't support Geolocation
       handleLocationError(false, infoWindow, map.getCenter());
       }
+      var geocoder = new google.maps.Geocoder();
+      var newMapsArray = !{JSON.stringify(mapsArray)};
+      for (var i=0; i<24; i++){
+      var currentAddress = newMapsArray[i];
+      geocodeAddress(geocoder, currentAddress, map);
       }
+      }
+
       function handleLocationError(browserHasGeolocation, infoWindow, pos) {
       infoWindow.setPosition(pos);
       infoWindow.setContent(browserHasGeolocation ?
       'Error: The Geolocation service failed.' :
       'Error: Your browser doesn\\\'t support geolocation.');
+      }
+
+      function geocodeAddress(geocoder, address, resultsMap) {
+      var timeout = 600;
+      geocoder.geocode({'address': address}, function(results, status) {
+      if (status === google.maps.GeocoderStatus.OK) {
+      var infowindow = new google.maps.InfoWindow({
+      content: address
+      });
+      var marker = new google.maps.Marker({
+      map: resultsMap,
+      title: address,
+      position: results[0].geometry.location
+      });
+      marker.addListener('click', function() {
+      infowindow.open(resultsMap, marker);
+      });
+
+      } else {
+      else alert('Geocode was not successful for the following reason: ' + status);
+      }
+      });
       }
 
     script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyB9TqoY84nCZOotDUCSLNRBuhGr-aiBfSM&signed_in=true&callback=initMap', async='', defer='')

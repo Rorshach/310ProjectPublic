@@ -60,8 +60,16 @@ class Router {
         });
       });
     });
+    //API KEY: AIzaSyB9TqoY84nCZOotDUCSLNRBuhGr-aiBfSM
     router.get('/map', function(req, res) {
-      res.render('maps', { title: 'GoogleMap' });
+      var mapAddress = ["5300  East Boulevard, Vancouver BC", "2690  Larch St, Vancouver BC", "1100  Station St, Vancouver BC",
+    "494 W 49th Av, Vancouver BC", "8683  Kerr St, Vancouver BC", "3092  Garden Drive, Vancouver BC", "1164  Comox St, Vancouver BC",
+    "4580  Ontario St, Vancouver BC", "1100  Mainland St, Vancouver BC", "2300  Guelph St, Vancouver BC", "2403 W 8th Av, Vancouver BC",
+    "2290 E 25th Av, Vancouver BC", "4065  Victoria Dr, Vancouver BC", "1375 E 47th Av, Vancouver BC", "5988  Nanaimo St, Vancouver BC",
+    "1420 W 12th Av, Vancouver BC", "1305 W 70th Av, Vancouver BC", "1675  Charles St, Vancouver BC", "5175  Dumfries St, Vancouver BC",
+    "2202  Cassiar St, Vancouver BC", "5288  Joyce St, Vancouver BC", "1  Kingsway , Vancouver BC", "800 E  Broadway Av, Vancouver BC",
+    "1019  Broughton St, Vancouver BC"];
+      res.render('maps', { "mapsArray": mapAddress });
     });
     /* GET Userlist page. */
     /*router.get('/userlist', function(req, res) {
