@@ -60,6 +60,9 @@ class Router {
         });
       });
     });
+    router.get('/map', function(req, res) {
+      res.render('maps', { title: 'GoogleMap' });
+    });
     /* GET Userlist page. */
     /*router.get('/userlist', function(req, res) {
         var db = req.db;

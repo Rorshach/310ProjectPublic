@@ -1,6 +1,6 @@
 ///<reference path='../types/DefinitelyTyped/node/node.d.ts'/>
 /// <reference path='../types/DefinitelyTyped/express/express.d.ts'/>
-///<reference path='./foodmarket/FoodMarket'/>
+// ///<reference path='./foodmarket/FoodMarket'/>
 var parser = require('./parser/parser');
 var foodmarket = require('./foodmarket/FoodMarket');
 //import fmf = require(./foodmarket/foodmarketfactory);
@@ -47,6 +47,9 @@ var Router = (function () {
                     "marketOrganized": docs
                 });
             });
+        });
+        router.get('/map', function (req, res) {
+            res.render('maps', { title: 'GoogleMap' });
         });
         /* GET Userlist page. */
         /*router.get('/userlist', function(req, res) {
