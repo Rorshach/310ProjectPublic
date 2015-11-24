@@ -1,5 +1,5 @@
 {
-  "name": "nodetest1",
+  "name": "nodetest2",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -26,10 +26,7 @@
     "papaparse": "^4.1.2",
     "path": "^0.12.7",
     "serve-favicon": "~2.3.0",
-    "url": "^0.11.0",
-
-    "mongoose" : "~3.8.1",
-    "express-session": "~1.0.0"
+    "url": "^0.11.0"
   },
   "description": "",
   "main": "app.js",

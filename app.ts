@@ -5,30 +5,28 @@ interface Error {
     status?: number;
 
 }
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-
-var stormpath = require('express-stormpath');
-// New Code
-var mongo = require('mongodb');
-var monk = require('monk');
-var db = monk('localhost:27017/test2');
-
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var fm = require('./routes/foodmarket/FoodMarket');
-
-var app = express();
-
 class Application {
 
     constructor() {
 
-        // Constuctor?
+      var express = require('express');
+      var path = require('path');
+      var favicon = require('serve-favicon');
+      var logger = require('morgan');
+      var cookieParser = require('cookie-parser');
+      var bodyParser = require('body-parser');
+
+      var stormpath = require('express-stormpath');
+      // New Code
+      var mongo = require('mongodb');
+      var monk = require('monk');
+      var db = monk('localhost:27017/test2');
+
+      var routes = require('./routes/index');
+      var users = require('./routes/users');
+      // var fm = require('./routes/foodmarket/FoodMarket');
+
+      var app = express();
 
         // view engine setup
         app.set('views', path.join(__dirname, 'views'));
@@ -49,7 +47,7 @@ class Application {
             next();
         });
 
-				// var stormpath = require('express-stormpath');
+				var stormpath = require('express-stormpath');
 
 
 app.use(stormpath.init(app, {
@@ -72,7 +70,7 @@ app.on('stormpath.ready', function () {
 });
         app.use('/', routes);
         app.use('/users', users);
-        app.use('/foodmarket', fm);
+        // app.use('/foodmarket', fm);
 
         /// catch 404 and forwarding to error handler
         app.use(function(req, res, next) {
@@ -110,4 +108,4 @@ app.on('stormpath.ready', function () {
 }
 
 
-var app:Application = new Application();
+var app = new Application();

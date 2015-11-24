@@ -1,23 +1,22 @@
 /// <reference path='types/DefinitelyTyped/node/node.d.ts'/>
 /// <reference path='types/DefinitelyTyped/express/express.d.ts'/>
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var stormpath = require('express-stormpath');
-// New Code
-var mongo = require('mongodb');
-var monk = require('monk');
-var db = monk('localhost:27017/test2');
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var fm = require('./routes/foodmarket/FoodMarket');
-var app = express();
 var Application = (function () {
     function Application() {
-        // Constuctor?
+        var express = require('express');
+        var path = require('path');
+        var favicon = require('serve-favicon');
+        var logger = require('morgan');
+        var cookieParser = require('cookie-parser');
+        var bodyParser = require('body-parser');
+        var stormpath = require('express-stormpath');
+        // New Code
+        var mongo = require('mongodb');
+        var monk = require('monk');
+        var db = monk('localhost:27017/test2');
+        var routes = require('./routes/index');
+        var users = require('./routes/users');
+        // var fm = require('./routes/foodmarket/FoodMarket');
+        var app = express();
         // view engine setup
         app.set('views', path.join(__dirname, 'views'));
         app.set('view engine', 'jade');
@@ -34,7 +33,7 @@ var Application = (function () {
             console.log('Time: ', Date.now());
             next();
         });
-        // var stormpath = require('express-stormpath');
+        var stormpath = require('express-stormpath');
         app.use(stormpath.init(app, {
             // Optional configuration options.
             client: {
@@ -54,7 +53,7 @@ var Application = (function () {
         });
         app.use('/', routes);
         app.use('/users', users);
-        app.use('/foodmarket', fm);
+        // app.use('/foodmarket', fm);
         /// catch 404 and forwarding to error handler
         app.use(function (req, res, next) {
             var err = new Error('Not Found');
