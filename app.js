@@ -13,7 +13,7 @@ var monk = require('monk');
 var db = monk('localhost:27017/test2');
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var fm = require('./routes/FoodMarket');
+var fm = require('./routes/foodmarket/FoodMarket');
 var app = express();
 var Application = (function () {
     function Application() {
