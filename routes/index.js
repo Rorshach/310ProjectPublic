@@ -2,7 +2,7 @@
 /// <reference path='../types/DefinitelyTyped/express/express.d.ts'/>
 // ///<reference path='./foodmarket/FoodMarket'/>
 var parser = require('./parser/parser');
-var foodmarket = require('./foodmarket/foodmarket');
+var foodmarket = require('./foodmarket/FoodMarket');
 //import fmf = require(./foodmarket/foodmarketfactory);
 var Router = (function () {
     function Router() {

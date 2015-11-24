@@ -6,7 +6,7 @@
 
 import user = require('./user/user');
 import parser = require('./parser/parser');
-import foodmarket = require('./foodmarket/foodmarket');
+import foodmarket = require('./foodmarket/FoodMarket');
 //import fmf = require(./foodmarket/foodmarketfactory);
 
 class Router {
