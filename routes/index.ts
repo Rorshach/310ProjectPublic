@@ -23,7 +23,6 @@ class Router {
       tempParser.connect(fmUrl);
       //tempParser.parseCsvUrl("testUrl");
       tempParser.store("testStore");
-      console.log("test home page");
       res.render('index', { title: 'Food Market Locator' });
     });
 
@@ -163,7 +162,7 @@ class Router {
 
       var tempParser = new parser.Parser();
       var fmArray = tempParser.parseCsv("test.csv");
-      var headers = fmArray[0];
+      var headers = fmArray[1];
       // console.log(headers);
       // console.log(fmArray[1]);
 
@@ -191,7 +190,7 @@ class Router {
 
         //var testArray = fmArray[1];
         //year, type, name, op, num, direction, sname, stype, address, dir, web, openHour, closeHour, day, month, vendors, off, i
-        year = tempArray[0];
+        year = tempArray[1];
         type = tempArray[1];
         name = tempArray[2];
         op = tempArray[3];

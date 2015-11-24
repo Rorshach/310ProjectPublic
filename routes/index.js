@@ -15,8 +15,9 @@ var Router = (function () {
             tempParser.connect(fmUrl);
             //tempParser.parseCsvUrl("testUrl");
             tempParser.store("testStore");
-            console.log("test home page");
             res.render('index', { title: 'Food Market Locator' });
+            console.log("test home page");
+            console.log(req.db);
         });
         /* GET Hello World page. */
         router.get('/helloworld', function (req, res) {
