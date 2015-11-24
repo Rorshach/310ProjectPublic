@@ -1,4 +1,3 @@
-// ** OVER QUERY LIMIT SOLVED, PARSING PROBLEM NOT SOLVED ** //
 doctype html
 html
   head
@@ -39,7 +38,8 @@ html
       position: pos,
       map: map,
       title: 'My Location',
-      icon: {
+      icon: goldStar
+      {
       path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
       scale: 5,
       strokeColor: 'LightCoral',
@@ -55,10 +55,14 @@ html
       handleLocationError(false, infoWindow, map.getCenter());
       }
       var geocoder = new google.maps.Geocoder();
-      var newMapsArray = !{JSON.stringify(mapsArray)};
+      var names = !{JSON.stringify(names)};
+      var addresses = !{JSON.stringify(addresses)};
+      var openHours = !{JSON.stringify(openHours)};
+      var closedHours = !{JSON.stringify(closedHours)};
+      var days = !{JSON.stringify(days)};
+      var months = !{JSON.stringify(months)};
       for (var i=0; i<24; i++){
-      var currentAddress = newMapsArray[i];
-      geocodeAddress(geocoder, currentAddress, map);
+      geocodeAddress(geocoder, names[i], addresses[i], openHours[i], closedHours[i], days[i], months[i], map);
       }
       }
 
@@ -69,12 +73,12 @@ html
       'Error: Your browser doesn\\\'t support geolocation.');
       }
 
-      function geocodeAddress(geocoder, address, resultsMap) {
+      function geocodeAddress(geocoder, name, address, oHour, cHour, day, month, resultsMap) {
       var timeout = 600;
       geocoder.geocode({'address': address}, function(results, status) {
       if (status === google.maps.GeocoderStatus.OK) {
       var infowindow = new google.maps.InfoWindow({
-      content: address
+      content: name + address + oHour + cHour + day + month
       });
       var marker = new google.maps.Marker({
       map: resultsMap,
@@ -87,7 +91,7 @@ html
 
       } else {
       if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
-      setTimeout(function() {geocodeAddress(geocoder,address,resultsMap)}, (timeout * 3));
+      setTimeout(function() {geocodeAddress(geocoder,name,address,oHour, cHour, day, month,resultsMap)}, (timeout * 3));
       }
       else alert('Geocode was not successful for the following reason: ' + status);
       }
