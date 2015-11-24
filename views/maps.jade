@@ -30,7 +30,6 @@ html
       center: {lat: 49.283, lng: -123.121},
       zoom: 14
       });
-      var infoWindow = new google.maps.InfoWindow({map: map});
       // Try HTML5 geolocation.
       if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
@@ -38,9 +37,19 @@ html
       lat: position.coords.latitude,
       lng: position.coords.longitude
       };
-      infoWindow.setPosition(pos);
-      infoWindow.setContent('Location found.');
       map.setCenter(pos);
+      var marker = new google.maps.Marker({
+      position: pos,
+      map: map,
+      title: 'My Location',
+      icon: {
+      path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+      scale: 5,
+      strokeColor: 'LightCoral',
+      fillColor: 'LightSalmon',
+      fillOpacity: 0.75
+      }
+      });
       }, function() {
       handleLocationError(true, infoWindow, map.getCenter());
       });
