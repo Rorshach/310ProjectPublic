@@ -1,4 +1,4 @@
-// ** OVER QUERY LIMIT NOT SOLVED, INFO WINDOWS WORK THO, PARSING PROBLEM NOT SOLVED EITHER ** //
+// ** OVER QUERY LIMIT SOLVED, PARSING PROBLEM NOT SOLVED ** //
 doctype html
 html
   head
@@ -86,6 +86,9 @@ html
       });
 
       } else {
+      if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
+      setTimeout(function() {geocodeAddress(geocoder,address,resultsMap)}, (timeout * 3));
+      }
       else alert('Geocode was not successful for the following reason: ' + status);
       }
       });

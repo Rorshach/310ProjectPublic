@@ -50,6 +50,16 @@ var Router = (function () {
         });
         //API KEY: AIzaSyB9TqoY84nCZOotDUCSLNRBuhGr-aiBfSM
         router.get('/map', function (req, res) {
+            /*  var db = req.db;
+            var collection = db.get('marketCollection');
+            collection.find({},{ name:1, address:1, openHour:1, closeHour:1, day:1, month:1 }).toArray(function(e,docs){
+              var info = JSON.stringify(docs);
+              res.render('maps', {
+                "info" : info
+                //"mapsArray" : mapAddress
+              });
+            });
+          }); */
             var mapAddress = ["5300  East Boulevard, Vancouver BC", "2690  Larch St, Vancouver BC", "1100  Station St, Vancouver BC",
                 "494 W 49th Av, Vancouver BC", "8683  Kerr St, Vancouver BC", "3092  Garden Drive, Vancouver BC", "1164  Comox St, Vancouver BC",
                 "4580  Ontario St, Vancouver BC", "1100  Mainland St, Vancouver BC", "2300  Guelph St, Vancouver BC", "2403 W 8th Av, Vancouver BC",
