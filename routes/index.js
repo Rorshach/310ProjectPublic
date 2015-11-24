@@ -15,6 +15,7 @@ var Router = (function () {
             tempParser.connect(fmUrl);
             //tempParser.parseCsvUrl("testUrl");
             tempParser.store("testStore");
+            console.log("test home page");
             res.render('index', { title: 'Food Market Locator' });
         });
         /* GET Hello World page. */
@@ -142,13 +143,13 @@ var Router = (function () {
             var db = req.db;
             var collection = db.get('marketCollection');
             var fm = new foodmarket.FoodMarket("a", "a", "a", "a", "a", "a");
-            console.log(fm);
-            console.log(fm.getName());
+            // console.log(fm);
+            // console.log(fm.getName());
             var tempParser = new parser.Parser();
             var fmArray = tempParser.parseCsv("test.csv");
             var headers = fmArray[0];
-            console.log(headers);
-            console.log(fmArray[1]);
+            // console.log(headers);
+            // console.log(fmArray[1]);
             var year;
             var type;
             var name;

@@ -23,7 +23,7 @@ class Router {
       tempParser.connect(fmUrl);
       //tempParser.parseCsvUrl("testUrl");
       tempParser.store("testStore");
-
+      console.log("test home page");
       res.render('index', { title: 'Food Market Locator' });
     });
 
@@ -105,7 +105,7 @@ class Router {
         "months" : months
       });
     });
-    
+
     /* GET Userlist page. */
     /*router.get('/userlist', function(req, res) {
         var db = req.db;
@@ -158,14 +158,14 @@ class Router {
       var collection = db.get('marketCollection');
 
       var fm = new foodmarket.FoodMarket("a", "a", "a", "a", "a", "a");
-      console.log(fm);
-      console.log(fm.getName());
+      // console.log(fm);
+      // console.log(fm.getName());
 
       var tempParser = new parser.Parser();
       var fmArray = tempParser.parseCsv("test.csv");
       var headers = fmArray[0];
-      console.log(headers);
-      console.log(fmArray[1]);
+      // console.log(headers);
+      // console.log(fmArray[1]);
 
       var year;
       var type;
@@ -236,7 +236,6 @@ class Router {
 
         );
       }
-
       var tempFMRowData = "";
           res.redirect("marketList");
     });
