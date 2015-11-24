@@ -1,3 +1,4 @@
+// ** OMG IM ABOUT TO CRY IT'S SO BEAUTIFUL ** //
 doctype html
 html
   head
@@ -34,18 +35,26 @@ html
       lng: position.coords.longitude
       };
       map.setCenter(pos);
+      var goldStar = {
+      path: 'M 0,-24 6,-7 24,-7 10,4 15,21 0,11 -15,21 -10,4 -24,-7 -6,-7 z',
+      fillColor: 'yellow',
+      fillOpacity: 0.8,
+      scale: 1,
+      strokeColor: 'gold',
+      strokeWeight: 4
+      };
       var marker = new google.maps.Marker({
       position: pos,
       map: map,
       title: 'My Location',
       icon: goldStar
-      {
-      path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-      scale: 5,
-      strokeColor: 'LightCoral',
-      fillColor: 'LightSalmon',
-      fillOpacity: 0.75
-      }
+      //{
+      //path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+      //scale: 5,
+      //strokeColor: 'LightCoral',
+      //fillColor: 'LightSalmon',
+      //fillOpacity: 0.75
+      //}
       });
       }, function() {
       handleLocationError(true, infoWindow, map.getCenter());
@@ -78,7 +87,9 @@ html
       geocoder.geocode({'address': address}, function(results, status) {
       if (status === google.maps.GeocoderStatus.OK) {
       var infowindow = new google.maps.InfoWindow({
-      content: name + address + oHour + cHour + day + month
+      content: name + "<br> " + address + "<br> Open from: " +
+      oHour + " - " + cHour + "<br> Days Open: " +
+      day + "<br> Months Open: " + month
       });
       var marker = new google.maps.Marker({
       map: resultsMap,
