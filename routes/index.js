@@ -1,6 +1,6 @@
 ///<reference path='../types/DefinitelyTyped/node/node.d.ts'/>
 /// <reference path='../types/DefinitelyTyped/express/express.d.ts'/>
-///<reference path='./foodmarket/FoodMarket'/>
+// ///<reference path='./foodmarket/FoodMarket'/>
 var parser = require('./parser/parser');
 var foodmarket = require('./foodmarket/foodmarket');
 //import fmf = require(./foodmarket/foodmarketfactory);
@@ -62,11 +62,6 @@ var Router = (function () {
         /* GET New User Page */
         /*router.get('/newuser', function(req, res) {
           res.render('newuser', { title: 'Add New User' });
-        });
-		    
-        /* GET Calendar Page */
-        router.get('/calendar', function(req, res) {
-          res.render('calendar', { title: 'Calendar' });
         });
     
         /* GET Test page */
