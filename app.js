@@ -49,10 +49,10 @@ var Application = (function () {
         }));
         // Once Stormpath has initialized itself, start your web server!
         app.on('stormpath.ready', function () {
-            app.listen(3000);
+            app.listen(8080);
         });
         app.use('/', routes);
-        app.use('/users', users);
+        //app.use('/users', users);
         // app.use('/foodmarket', fm);
         /// catch 404 and forwarding to error handler
         app.use(function (req, res, next) {
