@@ -3,10 +3,6 @@ extends layout
 block content
     h1.
         Market List (Reorganized)
-    //login button
-    div.fb-login-button(data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true")
-    div
-        a.btn(href="./helloworld") Go to the settings page
     ul(id='accordion', class='ui-accordion')
         each market, i in marketOrganized
             h2(class='ui-accordion-header').
