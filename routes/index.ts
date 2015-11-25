@@ -31,6 +31,10 @@ class Router {
     router.get('/helloworld', function(req, res) {
       res.render('helloworld', { title: 'Hello, World' });
     });
+	    /* GET MarketEvents page. */
+    router.get('/marketevents', function(req, res) {
+      res.render('marketevents', { title: 'Market Events' });
+    });
 
     /* GET marketList page. */
     router.get('/marketList', function(req, res) {
