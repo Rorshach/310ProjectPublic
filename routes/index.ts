@@ -96,9 +96,11 @@ class Router {
     router.get('/marketOrganized', function(req, res) {
       var db = req.db;
       var collection = db.get('marketCollection');
+	  var favs = [];
+	  if(typeof(req.user.customData.favs)!=='undefined'){favs=req.user.customData.favs;}
       collection.find({},{},function(e,docs){
         res.render('marketOrganized', {
-          "marketOrganized" : docs, "user":req.user.customData.favs
+          "marketOrganized" : docs, "user":favs
         });
       });
     });
