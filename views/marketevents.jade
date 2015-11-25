@@ -1,13 +1,6 @@
-doctype html
-html
-  head
-    title= title
-    script(src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js")
-    script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js')
-    link(href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/redmond/jquery-ui.css', rel='stylesheet')
-    script(src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js')
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
+extends layout
+
+block content
     script.
         window.fbAsyncInit = function() {
             FB.init({
@@ -37,4 +30,3 @@ html
             js.src = "//connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
-    block content
