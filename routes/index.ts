@@ -46,7 +46,9 @@ class Router {
     });
 		    /* GET Calendar page. */
     router.get('/calendar', stormpath.loginRequired, function(req, res) {
-      res.render('calendar', { title: 'Calendar', userData: req.user.customData.favs});
+	var favs = [];
+		  if(typeof(req.user.customData.favs)!=='undefined'){favs=req.user.customData.favs;}
+      res.render('calendar', { title: 'Calendar', userData: favs});
     });
 	router.get('/addFavourite', stormpath.loginRequired, function (req, res) {
 	  // You can add fields
