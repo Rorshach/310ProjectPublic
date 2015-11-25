@@ -6,13 +6,16 @@ block content
     //login button
     div.fb-login-button(data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true")
     div
-        a.btn(href="./helloworld") Go to the settings page 
+        a.btn(href="./helloworld") Go to the settings page
     ul(id='accordion', class='ui-accordion')
         each market, i in marketOrganized
             h2(class='ui-accordion-header').
                 #{market.name}
             div(class='ui-accordion-content')
                 li
+                    if ("#{market.fb}" != "")
+                      form(action="#{market.fb}")
+                        input(type='submit', value='Like us on facebook!')
                     p Address: #{market.address}
                     p Opens At: #{market.openHour}
                     p Closed At: #{market.closeHour}

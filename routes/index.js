@@ -48,6 +48,9 @@ var Router = (function () {
                 });
             });
         });
+        router.get('/facebookTest', function (req, res) {
+            res.render('facebookTest', {});
+        });
         //API KEY: AIzaSyB9TqoY84nCZOotDUCSLNRBuhGr-aiBfSM
         router.get('/map', function (req, res) {
             var tempParser = new parser.Parser();
@@ -166,6 +169,7 @@ var Router = (function () {
             var tempMonth;
             var vendors;
             var off;
+            var fb;
             var fm_id;
             for (var i = 1; i < fmArray.length; i++) {
                 var tempArray = fmArray[i];
@@ -188,7 +192,8 @@ var Router = (function () {
                 tempMonth = tempArray[14];
                 vendors = tempArray[15];
                 off = tempArray[16];
-                fm_id = tempArray[17];
+                fb = tempArray[17];
+                fm_id = tempArray[18];
                 //year, type, name, op, num, direction, sname, stype, address, dir, web, openHour, closeHour, day, month, vendors, off, i
                 console.log(name);
                 collection.update({ "name": name }, {
@@ -208,7 +213,8 @@ var Router = (function () {
                     "day": tempDay,
                     "month": tempMonth,
                     "vendors": vendors,
-                    "off": off
+                    "off": off,
+                    "fb": fb
                 }, { upsert: true });
             }
             var tempFMRowData = "";
