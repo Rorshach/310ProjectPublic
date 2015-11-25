@@ -4,8 +4,8 @@ block content
 	h1 Settings
 	p Background color:
 
-		a.btn(href="./blue") Blue
-		a.btn(href="./white") White
+		button(id="blue") Blue
+		button(id="white") Red
 	if g == white
 		p this is white page
 	if g == lightblue
@@ -13,13 +13,11 @@ block content
 	else
 		p idk
 	style. 
-		body {
-			background-color: red;
-		}
 		
 
 
 	script.
+		$(document).ready(function (){document.getElementById('blue').onclick =function(){document.body.style.backgroundColor='blue';};document.getElementById('white').onclick = function(){document.body.style.backgroundColor='red';};});
 		//var h0= title
 		//facebook
 		window.fbAsyncInit = function() {
