@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1= title
+  p Search for a food market!
+
+  form#formSearchMarket(name="searchMarket",method="post",action="/searchMarket")
+          input#inputSearchName(type="text", placeholder="market name", name="searchName")
+          button#btnSubmit(type="submit") Search
+
+  //- form#formAddUser(name="adduser",method="post",action="/adduser")
+  //-     input#inputUserName(type="text", placeholder="username", name="username")
+  //-     input#inputUserEmail(type="text", placeholder="useremail", name="useremail")
+  //-     button#btnSubmit(type="submit") submit

@@ -26,6 +26,9 @@ var Router = (function () {
             tempParser.store("testStore");
             res.render('index', { title: 'Food Market Locator' });
         });
+        router.get('/search', function (req, res, next) {
+            res.render('search', { title: 'Search' });
+        });
         /* GET Hello World page. */
         router.get('/helloworld', function (req, res) {
             res.render('helloworld', { title: 'Settings' });
@@ -199,18 +202,56 @@ var Router = (function () {
                 }
             });
         });
+        router.post('/searchMarket', function (req, res) {
+            var db = req.db;
+            var collection = db.get('marketCollection');
+            var tempParser = new parser.Parser();
+            var fmArray = tempParser.parseCsv("test.csv");
+            var names = [];
+            var searchName = req.body.searchName.toLowerCase();
+            var isFound = false;
+            var foundArray = [];
+            for (var i = 1; i < fmArray.length; i++) {
+                var tempArray = fmArray[i];
+                names[i] = tempArray[2];
+            }
+            console.log(names);
+            console.log(searchName);
+            var foundCount = 0;
+            for (var j = 1; j < names.length; j++) {
+                if (names[j].toLowerCase().includes(searchName)) {
+                    foundArray[foundCount] = names[j];
+                    isFound = true;
+                    foundCount++;
+                }
+            }
+            console.log(isFound);
+            console.log(foundArray);
+            if (foundCount > 0) {
+                //Found
+                //res.render('searchedMarket', { title: "Found Market(s)"});
+                collection.find({ name: { $in: foundArray } }, {}, function (e, docs) {
+                    res.render('searchedMarket', {
+                        "marketOrganized": docs
+                    });
+                });
+            }
+            else {
+                res.redirect("search");
+            }
+        });
         /*Post to LoadMarket service */
         router.post('/loadMarket', function (req, res) {
             var db = req.db;
             var collection = db.get('marketCollection');
             var fm = new foodmarket.FoodMarket("a", "a", "a", "a", "a", "a");
-            console.log(fm);
-            console.log(fm.getName());
+            // console.log(fm);
+            // console.log(fm.getName());
             var tempParser = new parser.Parser();
             var fmArray = tempParser.parseCsv("test.csv");
             var headers = fmArray[0];
-            console.log(headers);
-            console.log(fmArray[1]);
+            // console.log(headers);
+            // console.log(fmArray[1]);
             var year;
             var type;
             var name;
