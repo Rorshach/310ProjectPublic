@@ -18,13 +18,16 @@ html
         FB.getLoginStatus(function(response) {if (response.status === 'connected') {var uid = response.authResponse.userID; var accessToken = response.authResponse.accessToken;
             FB.api("/154431829383/events",function (response) {if (response && !response.error) {console.log(response);createEvents(response);}});} else if (response.status === 'not_authorized') {} else {}});
         };
-        function createEvents(res){var events = [];for (var i = 0; i < res.data.length; i++){events.push(res.data[i].place.name);};console.log(events);addToPage(events);};
+        function createEvents(res){var events = [];for (var i = 0; i < res.data.length; i++){events.push({title:res.data[i].name,id:res.data[i].id});console.log(res.data[i].id);};console.log(events);addToPage(events);};
         function addToPage(events){
             var strs = events;
             var list = document.createElement("ul");
             for (var i in strs) {
+                var a = document.createElement("a");
+                a.setAttribute("href", "https://www.facebook.com/events/"+strs[i].id);
+                a.innerHTML = strs[i].title;
                 var elem = document.createElement("li");
-                elem.innerHTML = strs[i];
+                elem.appendChild(a);
                 list.appendChild(elem);}
             document.body.appendChild(list);};
         (function(d, s, id){
