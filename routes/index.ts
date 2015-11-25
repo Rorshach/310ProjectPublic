@@ -49,7 +49,9 @@ class Router {
     });
 		    /* GET Calendar page. */
     router.get('/calendar', stormpath.loginRequired, function(req, res) {
-      res.render('calendar', { title: 'Calendar', userData: req.user.customData.favs});
+	var favs = [];
+		  if(typeof(req.user.customData.favs)!=='undefined'){favs=req.user.customData.favs;}
+      res.render('calendar', { title: 'Calendar', userData: favs});
     });
 	router.get('/addFavourite', stormpath.loginRequired, function (req, res) {
 	  // You can add fields
@@ -99,9 +101,11 @@ class Router {
     router.get('/marketOrganized', function(req, res) {
       var db = req.db;
       var collection = db.get('marketCollection');
+	  var favs = [];
+	  if(typeof(req.user.customData.favs)!=='undefined'){favs=req.user.customData.favs;}
       collection.find({},{},function(e,docs){
         res.render('marketOrganized', {
-          "marketOrganized" : docs, "user":req.user.customData.favs
+          "marketOrganized" : docs, "user":favs
         });
       });
     });
