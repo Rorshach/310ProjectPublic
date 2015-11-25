@@ -35,7 +35,7 @@ var Router = (function () {
             res.render('marketevents', { title: 'Market Events' });
         });
         /* GET Calendar page. */
-        router.get('/calendar', function (req, res) {
+        router.get('/calendar', stormpath.loginRequired, function (req, res) {
             res.render('calendar', { title: 'Calendar', userData: req.user.customData.favs });
         });
         router.get('/addFavourite', stormpath.loginRequired, function (req, res) {
@@ -49,7 +49,6 @@ var Router = (function () {
             req.user.customData.save();
             req.user.customData.save(function (err) {
                 if (err) {
-                    res.status(400).end('Oops!  There was an error: ' + err.userMessage);
                 }
                 else {
                     res.end('Custom data was saved!');
@@ -66,14 +65,12 @@ var Router = (function () {
             req.user.customData.save();
             req.user.customData.save(function (err) {
                 if (err) {
-                    res.status(400).end('Oops!  There was an error: ' + err.userMessage);
                 }
                 else {
                     res.end('Custom data was saved!');
                 }
             });
             res.send('Your favouites are: ' + req.user.customData.favs);
-            res.send('Your email address is: ' + req.user.customData.favs);
         });
         /* GET marketList page. */
         router.get('/marketList', function (req, res) {

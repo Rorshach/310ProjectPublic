@@ -38,6 +38,7 @@ html
             console.log('#{market}');
             var events = [];
             var setCalendar;
+            checkIfVariableIsSet();
             function checkIfVariableIsSet(){
                 if(typeof res !== 'undefined'){
                     console.log("running" + mark);
@@ -45,7 +46,6 @@ html
                     setCalendar = "yay";
                 }
                 else{setTimeout(function(){checkIfVariableIsSet();},250);}}
-            checkIfVariableIsSet();
             function eventsForMarket(market){
                 for(var i = 0; i < res.data.length; i++){
                     if(res.data[i].place.name == market){console.log(market);
