@@ -1,7 +1,10 @@
-
-var expect = require('chai').expect;
-var parser = require('../routes/parser/parser.js');
-var foodmarket = require('../routes/foodmarket/FoodMarket.js');
+///<reference path='../types/DefinitelyTyped/chai/chai-2.0.0.d.ts'/>
+import expect = require('chai');
+var expect = chai.expect;
+import chaiAsPromised = require('chai-as-promised');
+chai.use(chaiAsPromised);
+import parser = require('../routes/parser/parser.js');
+import foodmarket = require('../routes/foodmarket/FoodMarket.js');
 
 describe('elements of the csv file', function() {
   var testParser = new parser.Parser();
@@ -12,7 +15,7 @@ describe('elements of the csv file', function() {
       var tArray = testArray[i];
       var name = tArray[2];
       names.push(name);
-    }
+    };
     it('names are strings', function() {
       expect(names[1]).to.be.a('string');
     });
