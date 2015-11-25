@@ -59,7 +59,7 @@ class Router {
 		  //res.status(400).end('Oops!  There was an error: ' + err.userMessage);
 		}else{
 		  res.end('Custom data was saved!');}});
-	  res.send('Your favouites are: ' + req.user.customData.favs);
+	  res.redirect('/');
 });
 	router.get('/removeFavourite', stormpath.loginRequired, function (req, res) {
 	  for(var i=0; i < req.user.customData.favs.length; i++){if (req.user.customData.favs[i]==req.param('market')){
@@ -71,7 +71,7 @@ class Router {
 		  //res.status(400).end('Oops!  There was an error: ' + err.userMessage);
 		}else{
 		  res.end('Custom data was saved!');}});
-	  res.send('Your favouites are: ' + req.user.customData.favs);
+	  res.redirect('/');
 });
 
     /* GET marketList page. */
