@@ -1,23 +1,18 @@
 extends layout
 block content
-	g= title
 	h1 Settings
 	p Background color:
-
-		button(id="blue") Blue
-		button(id="white") Red
-	if g == white
-		p this is white page
-	if g == lightblue
-		p this is blue page
-	else
-		p idk
+		a(href="./changeColor?color=blue")
+			button(id="blue") Blue
+		a(href="./changeColor?color=red")
+			button(id="white") Red
 	style. 
 		
 
 
 	script.
-		$(document).ready(function (){document.getElementById('blue').onclick =function(){document.body.style.backgroundColor='blue';};document.getElementById('white').onclick = function(){document.body.style.backgroundColor='red';};});
+		console.log('#{color}');
+		$(document).ready(function (){document.body.style.backgroundColor='#{color}'});
 		//var h0= title
 		//facebook
 		window.fbAsyncInit = function() {

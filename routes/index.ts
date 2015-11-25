@@ -35,28 +35,41 @@ class Router {
       res.render('index', { title: 'Food Market Locator' });
     });
 
-    router.get('/search', function(req, res, next) {
-      res.render('search', { title: 'Search'});
+    router.get('/search', stormpath.loginRequired, function(req, res, next) {
+      res.render('search', { title: 'Search', color: req.user.customData.color});
     });
 
     /* GET Hello World page. */
-    router.get('/helloworld', function(req, res) {
-      res.render('helloworld', { title: 'Settings' });
+    router.get('/helloworld', stormpath.loginRequired, function(req, res) {
+      res.render('helloworld', { title: 'Settings', color: req.user.customData.color });
     });
 	    /* GET MarketEvents page. */
-    router.get('/marketevents', function(req, res) {
-      res.render('marketevents', { title: 'Market Events' });
+    router.get('/marketevents', stormpath.loginRequired, function(req, res) {
+      res.render('marketevents', { title: 'Market Events', color: req.user.customData.color });
     });
 		    /* GET Calendar page. */
     router.get('/calendar', stormpath.loginRequired, function(req, res) {
 	var favs = [];
 		  if(typeof(req.user.customData.favs)!=='undefined'){favs=req.user.customData.favs;}
-      res.render('calendar', { title: 'Calendar', userData: favs});
+      res.render('calendar', { title: 'Calendar', userData: favs, color: req.user.customData.color});
     });
 	router.get('/addFavourite', stormpath.loginRequired, function (req, res) {
 	  // You can add fields
 	  if (typeof(req.user.customData.favs) == 'undefined'){req.user.customData.favs[0] = req.param('market');}
 	  else{req.user.customData.favs[req.user.customData.favs.length] = req.param('market');}
+	  req.user.customData.save();
+
+	  req.user.customData.save(function (err) {
+		if (err) {
+		  //res.status(400).end('Oops!  There was an error: ' + err.userMessage);
+		}else{
+		  res.end('Custom data was saved!');}});
+	  res.redirect('/');
+});
+	router.get('/changeColor', stormpath.loginRequired, function (req, res) {
+	  // You can add fields
+	  if (typeof(req.user.customData.color) == 'undefined'){req.user.customData.color = req.param('color');}
+	  else{req.user.customData.color = req.param('color');}
 	  req.user.customData.save();
 
 	  req.user.customData.save(function (err) {
@@ -80,7 +93,7 @@ class Router {
 });
 
     /* GET marketList page. */
-    router.get('/marketList', function(req, res) {
+    router.get('/marketList', stormpath.loginRequired, function(req, res) {
       var db = req.db;
       var collection = db.get('marketCollection');
       // while (tempFMRowData !== "End of parsed data.") {
@@ -92,20 +105,20 @@ class Router {
       // }
       collection.find({},{},function(e,docs){
         res.render('marketList', {
-          "marketList" : docs
+          "marketList" : docs, color: req.user.customData.color
         });
       });
     });
 
     /*GET marketFiltered page */
-    router.get('/marketOrganized', function(req, res) {
+    router.get('/marketOrganized', stormpath.loginRequired, function(req, res) {
       var db = req.db;
       var collection = db.get('marketCollection');
 	  var favs = [];
 	  if(typeof(req.user.customData.favs)!=='undefined'){favs=req.user.customData.favs;}
       collection.find({},{},function(e,docs){
         res.render('marketOrganized', {
-          "marketOrganized" : docs, "user":favs
+          "marketOrganized" : docs, "user":favs, color: req.user.customData.color
         });
       });
     });

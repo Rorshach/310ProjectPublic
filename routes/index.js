@@ -26,16 +26,16 @@ var Router = (function () {
             tempParser.store("testStore");
             res.render('index', { title: 'Food Market Locator' });
         });
-        router.get('/search', function (req, res, next) {
-            res.render('search', { title: 'Search' });
+        router.get('/search', stormpath.loginRequired, function (req, res, next) {
+            res.render('search', { title: 'Search', color: req.user.customData.color });
         });
         /* GET Hello World page. */
-        router.get('/helloworld', function (req, res) {
-            res.render('helloworld', { title: 'Settings' });
+        router.get('/helloworld', stormpath.loginRequired, function (req, res) {
+            res.render('helloworld', { title: 'Settings', color: req.user.customData.color });
         });
         /* GET MarketEvents page. */
-        router.get('/marketevents', function (req, res) {
-            res.render('marketevents', { title: 'Market Events' });
+        router.get('/marketevents', stormpath.loginRequired, function (req, res) {
+            res.render('marketevents', { title: 'Market Events', color: req.user.customData.color });
         });
         /* GET Calendar page. */
         router.get('/calendar', stormpath.loginRequired, function (req, res) {
@@ -43,7 +43,7 @@ var Router = (function () {
             if (typeof (req.user.customData.favs) !== 'undefined') {
                 favs = req.user.customData.favs;
             }
-            res.render('calendar', { title: 'Calendar', userData: favs });
+            res.render('calendar', { title: 'Calendar', userData: favs, color: req.user.customData.color });
         });
         router.get('/addFavourite', stormpath.loginRequired, function (req, res) {
             // You can add fields
@@ -52,6 +52,24 @@ var Router = (function () {
             }
             else {
                 req.user.customData.favs[req.user.customData.favs.length] = req.param('market');
+            }
+            req.user.customData.save();
+            req.user.customData.save(function (err) {
+                if (err) {
+                }
+                else {
+                    res.end('Custom data was saved!');
+                }
+            });
+            res.redirect('/');
+        });
+        router.get('/changeColor', stormpath.loginRequired, function (req, res) {
+            // You can add fields
+            if (typeof (req.user.customData.color) == 'undefined') {
+                req.user.customData.color = req.param('color');
+            }
+            else {
+                req.user.customData.color = req.param('color');
             }
             req.user.customData.save();
             req.user.customData.save(function (err) {
@@ -80,7 +98,7 @@ var Router = (function () {
             res.redirect('/');
         });
         /* GET marketList page. */
-        router.get('/marketList', function (req, res) {
+        router.get('/marketList', stormpath.loginRequired, function (req, res) {
             var db = req.db;
             var collection = db.get('marketCollection');
             // while (tempFMRowData !== "End of parsed data.") {
@@ -92,12 +110,12 @@ var Router = (function () {
             // }
             collection.find({}, {}, function (e, docs) {
                 res.render('marketList', {
-                    "marketList": docs
+                    "marketList": docs, color: req.user.customData.color
                 });
             });
         });
         /*GET marketFiltered page */
-        router.get('/marketOrganized', function (req, res) {
+        router.get('/marketOrganized', stormpath.loginRequired, function (req, res) {
             var db = req.db;
             var collection = db.get('marketCollection');
             var favs = [];
@@ -106,7 +124,7 @@ var Router = (function () {
             }
             collection.find({}, {}, function (e, docs) {
                 res.render('marketOrganized', {
-                    "marketOrganized": docs, "user": favs
+                    "marketOrganized": docs, "user": favs, color: req.user.customData.color
                 });
             });
         });

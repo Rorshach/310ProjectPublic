@@ -1,6 +1,8 @@
 extends layout
 
 block content
+    script.
+        $(document).ready(function (){document.body.style.backgroundColor='#{color}'});
     h1.
         Market List (Reorganized)
     ul(id='accordion', class='ui-accordion')
