@@ -39,7 +39,11 @@ var Router = (function () {
         });
         /* GET Calendar page. */
         router.get('/calendar', stormpath.loginRequired, function (req, res) {
-            res.render('calendar', { title: 'Calendar', userData: req.user.customData.favs });
+            var favs = [];
+            if (typeof (req.user.customData.favs) !== 'undefined') {
+                favs = req.user.customData.favs;
+            }
+            res.render('calendar', { title: 'Calendar', userData: favs });
         });
         router.get('/addFavourite', stormpath.loginRequired, function (req, res) {
             // You can add fields
@@ -57,7 +61,7 @@ var Router = (function () {
                     res.end('Custom data was saved!');
                 }
             });
-            res.send('Your favouites are: ' + req.user.customData.favs);
+            res.redirect('/');
         });
         router.get('/removeFavourite', stormpath.loginRequired, function (req, res) {
             for (var i = 0; i < req.user.customData.favs.length; i++) {
@@ -73,7 +77,7 @@ var Router = (function () {
                     res.end('Custom data was saved!');
                 }
             });
-            res.send('Your favouites are: ' + req.user.customData.favs);
+            res.redirect('/');
         });
         /* GET marketList page. */
         router.get('/marketList', function (req, res) {
@@ -96,9 +100,13 @@ var Router = (function () {
         router.get('/marketOrganized', function (req, res) {
             var db = req.db;
             var collection = db.get('marketCollection');
+            var favs = [];
+            if (typeof (req.user.customData.favs) !== 'undefined') {
+                favs = req.user.customData.favs;
+            }
             collection.find({}, {}, function (e, docs) {
                 res.render('marketOrganized', {
-                    "marketOrganized": docs, "user": req.user.customData.favs
+                    "marketOrganized": docs, "user": favs
                 });
             });
         });
