@@ -1,9 +1,26 @@
 extends layout
 block content
+	g= title
 	h1 Settings
-	p Customize your settings :)
+	p Background color:
+
+		a.btn(href="./blue") Blue
+		a.btn(href="./white") White
+	if g == white
+		p this is white page
+	if g == lightblue
+		p this is blue page
+	else
+		p idk
+	style. 
+		body {
+			background-color: red;
+		}
+		
+
 
 	script.
+		//var h0= title
 		//facebook
 		window.fbAsyncInit = function() {
 			FB.init({
