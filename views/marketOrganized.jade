@@ -1,0 +1,44 @@
+extends layout
+
+block content
+    h1.
+        Market List (Reorganized)
+    ul(id='accordion', class='ui-accordion')
+        each market, i in marketOrganized
+            h2(class='ui-accordion-header').
+                #{market.name}
+            div(class='ui-accordion-content')
+                li
+                    form(action="#{market.fb}")
+                      input(type='submit', value='Like us on facebook!')
+                    a(href='./addFavourite?market='+market.name, class='button',id="btn"+market.name) Favourite
+                    each m, j in user
+                        if m == market.name
+                            script.
+                                console.log('#{m}'+'#{user[0]}');
+                                document.getElementById('btn'+'#{market.name}').href = "./removeFavourite?market=#{market.name}";
+                                document.getElementById('btn'+'#{market.name}').innerHTML='UnFavourite'; 
+                    p Address: #{market.address}
+                    p Opens At: #{market.openHour}
+                    p Closed At: #{market.closeHour}
+                    p Days Open: #{market.day}
+                    p Months Open: #{market.month}
+    script.
+        $(".button").button();
+        //facebook
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : '437339859788634',
+                xfbml      : true,
+                version    : 'v2.5'
+            });
+        };
+
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        $("#accordion").accordion();
