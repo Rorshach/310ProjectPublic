@@ -9,9 +9,8 @@ block content
                 #{market.name}
             div(class='ui-accordion-content')
                 li
-                    if ("#{market.fb}" != "")
-                      form(action="#{market.fb}")
-                        input(type='submit', value='Like us on facebook!')
+                    form(action="#{market.fb}")
+                      input(type='submit', value='Like us on facebook!')
                     p Address: #{market.address}
                     p Opens At: #{market.openHour}
                     p Closed At: #{market.closeHour}
