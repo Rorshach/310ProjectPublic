@@ -8,6 +8,14 @@ var Router = (function () {
     function Router() {
         var express = require('express');
         var router = express.Router();
+        router.get('/blue', function (req, res) {
+            var c = 'lightblue';
+            res.render('helloworld', { title: 'lightblue' });
+        });
+        router.get('/white', function (req, res) {
+            var c = 'white';
+            res.render('helloworld', { title: 'white' });
+        });
         /* GET home page. */
         router.get('/', function (req, res, next) {
             var fmUrl = ('ftp://webftp.vancouver.ca/OpenData/csv/CommunityFoodMarketsandFarmersMarkets.csv');
@@ -19,7 +27,7 @@ var Router = (function () {
         });
         /* GET Hello World page. */
         router.get('/helloworld', function (req, res) {
-            res.render('helloworld', { title: 'Hello, World' });
+            res.render('helloworld', { title: 'Settings' });
         });
         /* GET marketList page. */
         router.get('/marketList', function (req, res) {
