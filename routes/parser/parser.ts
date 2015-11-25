@@ -74,6 +74,7 @@ export class Parser implements ParserInterface {
     var month;
     var vendors;
     var off;
+    var fb;
 
     var fm = new Array();
     var fmArray = new Array();
@@ -99,7 +100,8 @@ export class Parser implements ParserInterface {
         month = attributeArr[14];
         vendors = attributeArr[15];
         off = attributeArr[16];
-        var tempArray = [year, type, name, op, num, direction, sname, stype, address, dir, web, openHour, closeHour, day, month, vendors, off, i];
+        fb = attributeArr[17];
+        var tempArray = [year, type, name, op, num, direction, sname, stype, address, dir, web, openHour, closeHour, day, month, vendors, off, fb, i];
         fm = tempArray;
         fmArray.push(fm);
       }

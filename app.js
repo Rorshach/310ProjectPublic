@@ -36,6 +36,9 @@ var Application = (function () {
         var stormpath = require('express-stormpath');
         app.use(stormpath.init(app, {
             // Optional configuration options.
+            expand: {
+                customData: true
+            },
             client: {
                 apiKey: {
                     id: '6X068U6YV7L75FNKOG7HY4A5E',

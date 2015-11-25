@@ -8,13 +8,22 @@ import user = require('./user/user');
 import parser = require('./parser/parser');
 import foodmarket = require('./foodmarket/FoodMarket');
 //import fmf = require(./foodmarket/foodmarketfactory);
+var stormpath = require('express-stormpath');
+
 
 class Router {
 
   constructor() {
     var express = require('express');
     var router = express.Router();
-
+    router.get('/blue', function(req, res) {
+    var c = 'lightblue';
+    res.render('helloworld', {title: 'lightblue'});
+    });
+    router.get('/white', function(req, res) {
+    var c = 'white';
+    res.render('helloworld', {title: 'white'});
+    });
     /* GET home page. */
     router.get('/', function(req, res, next) {
       var fmUrl = ('ftp://webftp.vancouver.ca/OpenData/csv/CommunityFoodMarketsandFarmersMarkets.csv');
@@ -32,8 +41,41 @@ class Router {
 
     /* GET Hello World page. */
     router.get('/helloworld', function(req, res) {
-      res.render('helloworld', { title: 'Hello, World' });
+      res.render('helloworld', { title: 'Settings' });
     });
+	    /* GET MarketEvents page. */
+    router.get('/marketevents', function(req, res) {
+      res.render('marketevents', { title: 'Market Events' });
+    });
+		    /* GET Calendar page. */
+    router.get('/calendar', stormpath.loginRequired, function(req, res) {
+      res.render('calendar', { title: 'Calendar', userData: req.user.customData.favs});
+    });
+	router.get('/addFavourite', stormpath.loginRequired, function (req, res) {
+	  // You can add fields
+	  if (typeof(req.user.customData.favs) == 'undefined'){req.user.customData.favs[0] = req.param('market');}
+	  else{req.user.customData.favs[req.user.customData.favs.length] = req.param('market');}
+	  req.user.customData.save();
+
+	  req.user.customData.save(function (err) {
+		if (err) {
+		  //res.status(400).end('Oops!  There was an error: ' + err.userMessage);
+		}else{
+		  res.end('Custom data was saved!');}});
+	  res.send('Your favouites are: ' + req.user.customData.favs);
+});
+	router.get('/removeFavourite', stormpath.loginRequired, function (req, res) {
+	  for(var i=0; i < req.user.customData.favs.length; i++){if (req.user.customData.favs[i]==req.param('market')){
+	  delete req.user.customData.favs[i];}}
+	  	  req.user.customData.save();
+
+	  req.user.customData.save(function (err) {
+		if (err) {
+		  //res.status(400).end('Oops!  There was an error: ' + err.userMessage);
+		}else{
+		  res.end('Custom data was saved!');}});
+	  res.send('Your favouites are: ' + req.user.customData.favs);
+});
 
     /* GET marketList page. */
     router.get('/marketList', function(req, res) {
@@ -59,9 +101,13 @@ class Router {
       var collection = db.get('marketCollection');
       collection.find({},{},function(e,docs){
         res.render('marketOrganized', {
-          "marketOrganized" : docs
+          "marketOrganized" : docs, "user":req.user.customData.favs
         });
       });
+    });
+
+    router.get('/facebookTest', function(req, res) {
+      res.render('facebookTest', {});
     });
 
     //API KEY: AIzaSyB9TqoY84nCZOotDUCSLNRBuhGr-aiBfSM
@@ -229,6 +275,7 @@ class Router {
       var tempMonth;
       var vendors;
       var off;
+      var fb;
       var fm_id;
 
       for (var i=1;i<fmArray.length; i++) {
@@ -253,7 +300,8 @@ class Router {
         tempMonth = tempArray[14];
         vendors = tempArray[15];
         off = tempArray[16];
-        fm_id = tempArray[17];
+        fb = tempArray[17];
+        fm_id = tempArray[18];
 //year, type, name, op, num, direction, sname, stype, address, dir, web, openHour, closeHour, day, month, vendors, off, i
         console.log(name);
         collection.update(
@@ -275,7 +323,8 @@ class Router {
             "day" : tempDay,
             "month" : tempMonth,
             "vendors" : vendors,
-            "off" : off
+            "off" : off,
+            "fb" : fb
           },
           { upsert: true}
 

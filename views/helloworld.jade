@@ -1,13 +1,26 @@
 extends layout
-
 block content
+	g= title
 	h1 Settings
-	p Customize your settings :)
+	p Background color:
 
-	//login button
-	div.fb-login-button(data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true")
+		a.btn(href="./blue") Blue
+		a.btn(href="./white") White
+	if g == white
+		p this is white page
+	if g == lightblue
+		p this is blue page
+	else
+		p idk
+	style. 
+		body {
+			background-color: red;
+		}
+		
+
 
 	script.
+		//var h0= title
 		//facebook
 		window.fbAsyncInit = function() {
 			FB.init({

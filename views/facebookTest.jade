@@ -1,0 +1,20 @@
+doctype html
+html
+  head
+    title Hello
+
+  body
+    #fb-root
+    script.
+      (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=437339859788634";
+      fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+
+    .fb-page(data-href='https://www.facebook.com/facebook', data-width='500', data-height='100', data-small-header='false', data-adapt-container-width='false', data-hide-cover='false', data-show-facepile='true', data-show-posts='false')
+      .fb-xfbml-parse-ignore
+        blockquote(cite='https://www.facebook.com/facebook')
+          a(href='https://www.facebook.com/facebook') Facebook
