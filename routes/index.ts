@@ -42,11 +42,12 @@ class Router {
       //   // Store or update database with object
       //   // Check if next row is endstr
       // }
-      collection.find({},{},function(e,docs){
-        res.render('marketList', {
-          "marketList" : docs
-        });
-      });
+      // collection.find({},{},function(e,docs){
+      //   res.render('marketList', {
+      //     "marketList" : docs
+      //   });
+      // });
+      res.render('marketList', { title: 'test title'});
     });
 
     /*GET marketFiltered page */
