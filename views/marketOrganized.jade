@@ -11,12 +11,20 @@ block content
                 li
                     form(action="#{market.fb}")
                       input(type='submit', value='Like us on facebook!')
+                    a(href='./addFavourite?market='+market.name, class='button',id="btn"+market.name) Favourite
+                    each m, j in user
+                        if m == market.name
+                            script.
+                                console.log('#{m}'+'#{user[0]}');
+                                document.getElementById('btn'+'#{market.name}').href = "./removeFavourite?market=#{market.name}";
+                                document.getElementById('btn'+'#{market.name}').innerHTML='UnFavourite'; 
                     p Address: #{market.address}
                     p Opens At: #{market.openHour}
                     p Closed At: #{market.closeHour}
                     p Days Open: #{market.day}
                     p Months Open: #{market.month}
     script.
+        $(".button").button();
         //facebook
         window.fbAsyncInit = function() {
             FB.init({

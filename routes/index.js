@@ -4,6 +4,7 @@
 var parser = require('./parser/parser');
 var foodmarket = require('./foodmarket/FoodMarket');
 //import fmf = require(./foodmarket/foodmarketfactory);
+var stormpath = require('express-stormpath');
 var Router = (function () {
     function Router() {
         var express = require('express');
@@ -29,6 +30,51 @@ var Router = (function () {
         router.get('/helloworld', function (req, res) {
             res.render('helloworld', { title: 'Settings' });
         });
+        /* GET MarketEvents page. */
+        router.get('/marketevents', function (req, res) {
+            res.render('marketevents', { title: 'Market Events' });
+        });
+        /* GET Calendar page. */
+        router.get('/calendar', function (req, res) {
+            res.render('calendar', { title: 'Calendar', userData: req.user.customData.favs });
+        });
+        router.get('/addFavourite', stormpath.loginRequired, function (req, res) {
+            // You can add fields
+            if (typeof (req.user.customData.favs) == 'undefined') {
+                req.user.customData.favs[0] = req.param('market');
+            }
+            else {
+                req.user.customData.favs[req.user.customData.favs.length] = req.param('market');
+            }
+            req.user.customData.save();
+            req.user.customData.save(function (err) {
+                if (err) {
+                    res.status(400).end('Oops!  There was an error: ' + err.userMessage);
+                }
+                else {
+                    res.end('Custom data was saved!');
+                }
+            });
+            res.send('Your favouites are: ' + req.user.customData.favs);
+        });
+        router.get('/removeFavourite', stormpath.loginRequired, function (req, res) {
+            for (var i = 0; i < req.user.customData.favs.length; i++) {
+                if (req.user.customData.favs[i] == req.param('market')) {
+                    delete req.user.customData.favs[i];
+                }
+            }
+            req.user.customData.save();
+            req.user.customData.save(function (err) {
+                if (err) {
+                    res.status(400).end('Oops!  There was an error: ' + err.userMessage);
+                }
+                else {
+                    res.end('Custom data was saved!');
+                }
+            });
+            res.send('Your favouites are: ' + req.user.customData.favs);
+            res.send('Your email address is: ' + req.user.customData.favs);
+        });
         /* GET marketList page. */
         router.get('/marketList', function (req, res) {
             var db = req.db;
@@ -52,7 +98,7 @@ var Router = (function () {
             var collection = db.get('marketCollection');
             collection.find({}, {}, function (e, docs) {
                 res.render('marketOrganized', {
-                    "marketOrganized": docs
+                    "marketOrganized": docs, "user": req.user.customData.favs
                 });
             });
         });
