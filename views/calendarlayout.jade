@@ -11,25 +11,52 @@ html
     script(src='fullCalendar/lib/jquery.min.js')
     script(src='fullCalendar/lib/moment.min.js')
     script(src='fullCalendar/fullcalendar.js')
-  body
     script.
+        var res;
         window.fbAsyncInit = function() {
             FB.init({
                 appId      : '437339859788634',
                 xfbml      : true,
                 version    : 'v2.5'
             });
-        var events = [];
-        var res;
-        FB.getLoginStatus(function(response) {if (response.status === 'connected') {var uid = response.authResponse.userID; var accessToken = response.authResponse.accessToken;
-            FB.api("/154431829383/events",function (response) {if (response && !response.error) {console.log(response);createEvents(response);}});} else if (response.status === 'not_authorized') {} else {}});
+            FB.getLoginStatus(function(response) {if (response.status === 'connected') {var uid = response.authResponse.userID; var accessToken = response.authResponse.accessToken;
+                FB.api("/154431829383/events",function (response) {
+                    if (response && !response.error) {res=response;console.log(res);}});console.log(res);} else if (response.status === 'not_authorized') {} else {}});
         };
-        function createEvents(res){var events = [];for (var i = 0; i < res.data.length; i++) {events[i]= {title:res.data[i].name,start:res.data[i].start_time,end:res.data[i].end_time}};console.log(events);$('#calendar').fullCalendar({events});};
         (function(d, s, id){
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) {return;}
             js = d.createElement(s); js.id = id;
             js.src = "//connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
+        }(document, 'script', 'facebook-jssdk'));  
+        var favEvents = [];		
+  body
+    each market, m in userData
+        script.
+            var mark = '#{market}';
+            console.log('#{market}');
+            var events = [];
+            var setCalendar;
+            function checkIfVariableIsSet(){
+                if(typeof res !== 'undefined'){
+                    console.log("running" + mark);
+                    eventsForMarket(mark);
+                    setCalendar = "yay";
+                }
+                else{setTimeout(function(){checkIfVariableIsSet();},250);}}
+            checkIfVariableIsSet();
+            function eventsForMarket(market){
+                for(var i = 0; i < res.data.length; i++){
+                    if(res.data[i].place.name == market){console.log(market);
+                        favEvents.push({title:res.data[i].name,start:res.data[i].start_time,end:res.data[i].end_time});};}
+            };
+    script.
+        function checkIfVariableIsSet2(){
+            if(typeof setCalendar !== 'undefined'){
+                console.log("fave:" + favEvents);
+                $('#calendar').fullCalendar({events:favEvents});
+            }
+            else{setTimeout(function(){checkIfVariableIsSet2();},250);}};
+        checkIfVariableIsSet2();
     block content
